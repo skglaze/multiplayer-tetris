@@ -1,3 +1,8 @@
+* {
+    display: block;
+    width: 1000px;
+    margin: 0 auto;
+}
 body {
     border: 2px solid black;
 }
@@ -5,3 +10,19 @@ header {
     text-align: center;
     font-size: 50px;
 }
+#board {
+    width: 300px;
+    margin: 0 auto;
+    display: block;
+}
+.square {
+    float: left;
+    width: 30px;
+    height: 30px;
+    background: black;
+    margin: 0;
+  }
+
+  .occupied {
+      background: green;
+  }
