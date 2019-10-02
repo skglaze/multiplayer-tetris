@@ -5,8 +5,6 @@ for (i = 0; i < 200; i++) {
     board.appendChild(newSquares)
 }
 
-const interval = setInterval(fall, 800)
-
 const boardArr = document.getElementsByClassName('square')
 let topRight = 4
 let topLeft = 5
@@ -24,49 +22,47 @@ stop = () => {
 }
 
 moveRight = () => {
-    topLeft = topLeft + 1
-    topRight = topRight + 1
-    bottomLeft = bottomLeft + 1
-    bottomRight = bottomRight + 1
+    if ((topLeft + 1) % 10 != 0) {
+        topLeft = topLeft + 1
+        topRight = topRight + 1
+        bottomLeft = bottomLeft + 1
+        bottomRight = bottomRight + 1
 
-    boardArr[topRight].classList.add("occupied")
-    boardArr[topLeft].classList.add("occupied")
-    boardArr[bottomRight].classList.add("occupied")
-    boardArr[bottomLeft].classList.add("occupied")
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
 
-    boardArr[topLeft - 2].classList.remove("occupied")
-    boardArr[bottomLeft - 2].classList.remove("occupied")
+        boardArr[topLeft - 2].classList.remove("occupied")
+        boardArr[bottomLeft - 2].classList.remove("occupied")
+    }
 }
 
 moveLeft = () => {
-    topLeft = topLeft - 1
-    topRight = topRight - 1
-    bottomLeft = bottomLeft - 1
-    bottomRight = bottomRight - 1
+    if (topRight % 10 != 0) {
+        topLeft = topLeft - 1
+        topRight = topRight - 1
+        bottomLeft = bottomLeft - 1
+        bottomRight = bottomRight - 1
 
-    boardArr[topRight].classList.add("occupied")
-    boardArr[topLeft].classList.add("occupied")
-    boardArr[bottomRight].classList.add("occupied")
-    boardArr[bottomLeft].classList.add("occupied")
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
 
-    boardArr[topRight + 2].classList.remove("occupied")
-    boardArr[bottomRight + 2].classList.remove("occupied")
+        boardArr[topRight + 2].classList.remove("occupied")
+        boardArr[bottomRight + 2].classList.remove("occupied")
+    }
 }
 
 document.addEventListener('keydown', function (event) {
-    if (event.code == 'ArrowRight') {
+    if (event.code === 'ArrowRight') {
         moveRight()
     }
 })
 
 document.addEventListener('keydown', function (event) {
-    if (event.code == 'ArrowLeft') {
-        moveLeft()
-    }
-})
-
-document.addEventListener('keydown', function (event) {
-    if (event.code == 'ArrowLeft') {
+    if (event.code === 'ArrowLeft') {
         moveLeft()
     }
 })
@@ -86,4 +82,4 @@ fall = () => {
     boardArr[topLeft - 10].classList.remove("occupied")
 }
 
-
+const interval = setInterval(fall, 800)
