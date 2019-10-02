@@ -6,10 +6,10 @@ for (i = 0; i < 200; i++) {
 }
 
 const boardArr = document.getElementsByClassName('square')
-let topRight = 4
-let topLeft = 5
-let bottomRight = 14
-let bottomLeft = 15
+let topLeft = 4
+let topRight = 5
+let bottomLeft = 14
+let bottomRight = 15
 
 boardArr[topRight].classList.add("occupied")
 boardArr[topLeft].classList.add("occupied")
@@ -17,12 +17,16 @@ boardArr[bottomRight].classList.add("occupied")
 boardArr[bottomLeft].classList.add("occupied")
 
 stop = () => {
-    if (bottomRight > 200)
+    if (bottomRight + 10 > 200) {
         clearInterval(interval)
+    }
+    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
+        clearInterval(interval)
+    }
 }
 
 moveRight = () => {
-    if ((topLeft + 1) % 10 != 0) {
+    if ((topRight + 1) % 10 != 0) {
         topLeft = topLeft + 1
         topRight = topRight + 1
         bottomLeft = bottomLeft + 1
@@ -33,13 +37,13 @@ moveRight = () => {
         boardArr[bottomRight].classList.add("occupied")
         boardArr[bottomLeft].classList.add("occupied")
 
-        boardArr[topLeft - 2].classList.remove("occupied")
-        boardArr[bottomLeft - 2].classList.remove("occupied")
+        boardArr[topLeft - 1].classList.remove("occupied")
+        boardArr[bottomLeft - 1].classList.remove("occupied")
     }
 }
 
 moveLeft = () => {
-    if (topRight % 10 != 0) {
+    if (topLeft % 10 != 0) {
         topLeft = topLeft - 1
         topRight = topRight - 1
         bottomLeft = bottomLeft - 1
@@ -50,8 +54,8 @@ moveLeft = () => {
         boardArr[bottomRight].classList.add("occupied")
         boardArr[bottomLeft].classList.add("occupied")
 
-        boardArr[topRight + 2].classList.remove("occupied")
-        boardArr[bottomRight + 2].classList.remove("occupied")
+        boardArr[topRight + 1].classList.remove("occupied")
+        boardArr[bottomRight + 1].classList.remove("occupied")
     }
 }
 
@@ -72,7 +76,6 @@ fall = () => {
     topRight = topRight + 10
     bottomLeft = bottomLeft + 10
     bottomRight = bottomRight + 10
-    stop()
     boardArr[topRight].classList.add("occupied")
     boardArr[topLeft].classList.add("occupied")
     boardArr[bottomRight].classList.add("occupied")
@@ -80,6 +83,7 @@ fall = () => {
 
     boardArr[topRight - 10].classList.remove("occupied")
     boardArr[topLeft - 10].classList.remove("occupied")
+    stop()
 }
 
-const interval = setInterval(fall, 800)
+const interval = setInterval(fall, 2000)
