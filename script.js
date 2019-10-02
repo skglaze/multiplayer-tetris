@@ -5,6 +5,8 @@ for (i = 0; i < 200; i++) {
     board.appendChild(newSquares)
 }
 
+const interval = setInterval(fall, 800)
+
 const boardArr = document.getElementsByClassName('square')
 let topRight = 4
 let topLeft = 5
@@ -21,6 +23,54 @@ stop = () => {
         clearInterval(interval)
 }
 
+moveRight = () => {
+    topLeft = topLeft + 1
+    topRight = topRight + 1
+    bottomLeft = bottomLeft + 1
+    bottomRight = bottomRight + 1
+
+    boardArr[topRight].classList.add("occupied")
+    boardArr[topLeft].classList.add("occupied")
+    boardArr[bottomRight].classList.add("occupied")
+    boardArr[bottomLeft].classList.add("occupied")
+
+    boardArr[topLeft - 2].classList.remove("occupied")
+    boardArr[bottomLeft - 2].classList.remove("occupied")
+}
+
+moveLeft = () => {
+    topLeft = topLeft - 1
+    topRight = topRight - 1
+    bottomLeft = bottomLeft - 1
+    bottomRight = bottomRight - 1
+
+    boardArr[topRight].classList.add("occupied")
+    boardArr[topLeft].classList.add("occupied")
+    boardArr[bottomRight].classList.add("occupied")
+    boardArr[bottomLeft].classList.add("occupied")
+
+    boardArr[topRight + 2].classList.remove("occupied")
+    boardArr[bottomRight + 2].classList.remove("occupied")
+}
+
+document.addEventListener('keydown', function (event) {
+    if (event.code == 'ArrowRight') {
+        moveRight()
+    }
+})
+
+document.addEventListener('keydown', function (event) {
+    if (event.code == 'ArrowLeft') {
+        moveLeft()
+    }
+})
+
+document.addEventListener('keydown', function (event) {
+    if (event.code == 'ArrowLeft') {
+        moveLeft()
+    }
+})
+
 fall = () => {
     topLeft = topLeft + 10
     topRight = topRight + 10
@@ -35,8 +85,5 @@ fall = () => {
     boardArr[topRight - 10].classList.remove("occupied")
     boardArr[topLeft - 10].classList.remove("occupied")
 }
-
-const interval = setInterval(fall, 1000)
-
 
 
