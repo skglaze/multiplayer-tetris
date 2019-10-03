@@ -7,27 +7,30 @@ for (i = 0; i < 200; i++) {
 
 const boardArr = document.getElementsByClassName('square')
 
-// this shouldn't be global but it's ok for now
-let topLeft = 4
-let topRight = 5
-let bottomLeft = 14
-let bottomRight = 15
+const tetrisShapes = [[4, 5, 14, 15], [5, 15, 25, 35], [5, 15, 14, 16], [5, 6, 15, 14], [5, 4, 15, 16], [5, 15, 25, 26], [5, 15, 25, 24]]
 
-const newBlock = () => {
-    topLeft = 4
-    topRight = 5
-    bottomLeft = 14
-    bottomRight = 15
-}
+let shapeIndex = Math.floor(Math.random() * 7) - 1
 
-newBlock()
-let again = false
+let topLeft
+let topRight
+let bottomLeft
+let bottomRight
 
-const makeTetrisBlock = () => {
-    boardArr[topRight].classList.add("occupied")
-    boardArr[topLeft].classList.add("occupied")
-    boardArr[bottomRight].classList.add("occupied")
-    boardArr[bottomLeft].classList.add("occupied")
+setUp = () => {
+    shapeIndex = Math.floor(Math.random() * 7) - 1
+
+    topLeft = tetrisShapes[shapeIndex][0]
+    topRight = tetrisShapes[shapeIndex][1]
+    bottomLeft = tetrisShapes[shapeIndex][2]
+    bottomRight = tetrisShapes[shapeIndex][3]
+
+    const makeTetrisBlock = () => {
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+    }
+    makeTetrisBlock()
 }
 
 const moveRight = () => {
@@ -77,22 +80,123 @@ document.addEventListener('keydown', function (event) {
     }
 })
 
-
-const play = () => {
-    makeTetrisBlock()
-
-    const stop = () => {
-        if (bottomRight + 10 > 200) {
-            clearInterval(interval)
-            newBlock()
-            play()
-        }
-        if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
-            clearInterval(interval)
-            newBlock()
-            play()
-        }
+const stopSquare = () => {
+    if (bottomRight + 10 > 200) {
+        clearInterval(interval)
+        setUp()
+        play()
     }
+    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+}
+
+const stopLine = () => {
+    if (bottomRight + 10 > 200) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+    if ((boardArr[bottomRight + 10].classList.value === "square occupied")) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+}
+
+const stopT = () => {
+    if (bottomRight + 10 > 200) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied") || (boardArr[topRight + 10].classList.value === "square occupied")) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+}
+
+const stopS = () => {
+    if (bottomRight + 10 > 200) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied") || (boardArr[topRight + 10].classList.value === "square occupied")) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+}
+
+const stopZ = () => {
+    if (bottomRight + 10 > 200) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied") || (boardArr[topLeft + 10].classList.value === "square occupied")) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+}
+
+const stopL = () => {
+    if (bottomRight + 10 > 200) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+}
+
+const stopJ = () => {
+    if (bottomRight + 10 > 200) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
+        clearInterval(interval)
+        setUp()
+        play()
+    }
+}
+
+stopCondition = () => {
+    if (shapeIndex === 0) {
+        stopSquare()
+    }
+    if (shapeIndex === 1) {
+        stopLine()
+    }
+    if (shapeIndex === 2) {
+        stopT()
+    }
+    if (shapeIndex === 3) {
+        stopS()
+    }
+    if (shapeIndex === 4) {
+        stopZ()
+    }
+    if (shapeIndex === 5) {
+        stopL()
+    }
+    if (shapeIndex === 6) {
+        stopJ()
+    }
+}
+const play = () => {
+
+    stopCondition()
 
     const fall = () => {
         topLeft = topLeft + 10
@@ -109,10 +213,11 @@ const play = () => {
         stop()
     }
 
-    const interval = setInterval(fall, 200)
+    const interval = setInterval(fall, 600)
     if (again === true) {
         return again
     }
 }
 
+setUp()
 play()
