@@ -23,7 +23,7 @@ const makeTetrisBlock = () => {
     boardArr[bottomLeft].classList.add("occupied")
 }
 
-const moveRight = () => {
+const moveSquareRight = () => {
     if (((topRight + 1) % 10 != 0) && ((boardArr[bottomRight + 1].classList.value != "square occupied") && (boardArr[topRight + 1].classList.value != "square occupied"))) {
         topLeft = topLeft + 1
         topRight = topRight + 1
@@ -41,7 +41,119 @@ const moveRight = () => {
 
 }
 
-const moveLeft = () => {
+const moveLineRight = () => {
+    if (((topRight + 1) % 10 != 0) && ((boardArr[bottomRight + 1].classList.value != "square occupied") && (boardArr[topRight + 1].classList.value != "square occupied") && (boardArr[bottomLeft + 1].classList.value != "square occupied") && (boardArr[topLeft + 1].classList.value != "square occupied"))) {
+        topLeft = topLeft + 1
+        topRight = topRight + 1
+        bottomLeft = bottomLeft + 1
+        bottomRight = bottomRight + 1
+
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft - 1].classList.remove("occupied")
+        boardArr[bottomLeft - 1].classList.remove("occupied")
+        boardArr[topRight - 1].classList.remove("occupied")
+        boardArr[bottomRight - 1].classList.remove("occupied")
+    }
+
+}
+
+const moveTRight = () => {
+    if (((bottomRight + 1) % 10 != 0) && ((boardArr[bottomRight + 1].classList.value != "square occupied") && (boardArr[topLeft + 1].classList.value != "square occupied"))) {
+        topLeft = topLeft + 1
+        topRight = topRight + 1
+        bottomLeft = bottomLeft + 1
+        bottomRight = bottomRight + 1
+
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft - 1].classList.remove("occupied")
+        boardArr[bottomLeft - 1].classList.remove("occupied")
+    }
+
+}
+
+const moveSRight = () => {
+    if (((topRight + 1) % 10 != 0) && ((boardArr[bottomRight + 1].classList.value != "square occupied") && (boardArr[topRight + 1].classList.value != "square occupied"))) {
+        topLeft = topLeft + 1
+        topRight = topRight + 1
+        bottomLeft = bottomLeft + 1
+        bottomRight = bottomRight + 1
+
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft - 1].classList.remove("occupied")
+        boardArr[bottomLeft - 1].classList.remove("occupied")
+    }
+
+}
+
+const moveZRight = () => {
+    if (((bottomRight + 1) % 10 != 0) && ((boardArr[bottomRight + 1].classList.value != "square occupied") && (boardArr[topRight + 1].classList.value != "square occupied"))) {
+        topLeft = topLeft + 1
+        topRight = topRight + 1
+        bottomLeft = bottomLeft + 1
+        bottomRight = bottomRight + 1
+
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft - 1].classList.remove("occupied")
+        boardArr[bottomLeft - 1].classList.remove("occupied")
+    }
+
+}
+
+const moveLRight = () => {
+    if (((bottomRight + 1) % 10 != 0) && ((boardArr[bottomRight + 1].classList.value != "square occupied") && (boardArr[topLeft + 1].classList.value != "square occupied") && (boardArr[topRight + 1].classList.value != "square occupied"))) {
+        topLeft = topLeft + 1
+        topRight = topRight + 1
+        bottomLeft = bottomLeft + 1
+        bottomRight = bottomRight + 1
+
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft - 1].classList.remove("occupied")
+        boardArr[bottomLeft - 1].classList.remove("occupied")
+        boardArr[topRight - 1].classList.remove("occupied")
+    }
+
+}
+
+const moveJRight = () => {
+    if (((bottomRight + 1) % 10 != 0) && ((boardArr[bottomRight + 1].classList.value != "square occupied") && (boardArr[topLeft + 1].classList.value != "square occupied") && (boardArr[topRight + 1].classList.value != "square occupied"))) {
+        topLeft = topLeft + 1
+        topRight = topRight + 1
+        bottomLeft = bottomLeft + 1
+        bottomRight = bottomRight + 1
+
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft - 1].classList.remove("occupied")
+        boardArr[bottomLeft - 1].classList.remove("occupied")
+        boardArr[topRight - 1].classList.remove("occupied")
+    }
+
+}
+
+const moveSquareLeft = () => {
     if ((topLeft % 10 != 0) && ((boardArr[bottomLeft - 1].classList.value != "square occupied") && (boardArr[topLeft - 1].classList.value != "square occupied"))) {
         topLeft = topLeft - 1
         topRight = topRight - 1
@@ -58,17 +170,205 @@ const moveLeft = () => {
     }
 }
 
-document.addEventListener('keydown', function (event) {
-    if (event.code === 'ArrowRight') {
-        moveRight()
-    }
-})
+const moveLineLeft = () => {
+    if ((topLeft % 10 != 0) && ((boardArr[bottomLeft - 1].classList.value != "square occupied") && (boardArr[topLeft - 1].classList.value != "square occupied") && (boardArr[topRight - 1].classList.value != "square occupied") && (boardArr[bottomRight - 1].classList.value != "square occupied"))) {
+        topLeft = topLeft - 1
+        topRight = topRight - 1
+        bottomLeft = bottomLeft - 1
+        bottomRight = bottomRight - 1
 
-document.addEventListener('keydown', function (event) {
-    if (event.code === 'ArrowLeft') {
-        moveLeft()
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topRight + 1].classList.remove("occupied")
+        boardArr[bottomRight + 1].classList.remove("occupied")
+        boardArr[topLeft + 1].classList.remove("occupied")
+        boardArr[bottomLeft + 1].classList.remove("occupied")
     }
-})
+}
+
+const moveTLeft = () => {
+    if ((bottomLeft % 10 != 0) && ((boardArr[bottomLeft - 1].classList.value != "square occupied") && (boardArr[topLeft - 1].classList.value != "square occupied"))) {
+        topLeft = topLeft - 1
+        topRight = topRight - 1
+        bottomLeft = bottomLeft - 1
+        bottomRight = bottomRight - 1
+
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft + 1].classList.remove("occupied")
+        boardArr[bottomRight + 1].classList.remove("occupied")
+    }
+}
+
+const moveSLeft = () => {
+    if ((bottomLeft % 10 != 0) && ((boardArr[bottomLeft - 1].classList.value != "square occupied") && (boardArr[topLeft - 1].classList.value != "square occupied"))) {
+        topLeft = topLeft - 1
+        topRight = topRight - 1
+        bottomLeft = bottomLeft - 1
+        bottomRight = bottomRight - 1
+
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topRight + 1].classList.remove("occupied")
+        boardArr[bottomRight + 1].classList.remove("occupied")
+    }
+}
+
+const moveZLeft = () => {
+    if ((topLeft % 10 != 0) && ((boardArr[bottomLeft - 1].classList.value != "square occupied") && (boardArr[topLeft - 1].classList.value != "square occupied"))) {
+        topLeft = topLeft - 1
+        topRight = topRight - 1
+        bottomLeft = bottomLeft - 1
+        bottomRight = bottomRight - 1
+
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topRight + 1].classList.remove("occupied")
+        boardArr[bottomRight + 1].classList.remove("occupied")
+    }
+}
+
+const moveLLeft = () => {
+    if ((bottomLeft % 10 != 0) && ((boardArr[bottomLeft - 1].classList.value != "square occupied") && (boardArr[topLeft - 1].classList.value != "square occupied") && (boardArr[topRight - 1].classList.value != "square occupied"))) {
+        topLeft = topLeft - 1
+        topRight = topRight - 1
+        bottomLeft = bottomLeft - 1
+        bottomRight = bottomRight - 1
+
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft + 1].classList.remove("occupied")
+        boardArr[bottomRight + 1].classList.remove("occupied")
+        boardArr[topRight + 1].classList.remove("occupied")
+    }
+}
+
+const moveJLeft = () => {
+    if ((bottomLeft % 10 != 0) && ((boardArr[bottomLeft - 1].classList.value != "square occupied") && (boardArr[topLeft - 1].classList.value != "square occupied") && (boardArr[topRight - 1].classList.value != "square occupied"))) {
+        topLeft = topLeft - 1
+        topRight = topRight - 1
+        bottomLeft = bottomLeft - 1
+        bottomRight = bottomRight - 1
+
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft + 1].classList.remove("occupied")
+        boardArr[bottomRight + 1].classList.remove("occupied")
+        boardArr[topRight + 1].classList.remove("occupied")
+    }
+}
+
+whichMove = () => {
+    if (shapeIndex === 0) {
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowRight') {
+                moveSquareRight()
+            }
+        })
+
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowLeft') {
+                moveSquareLeft()
+            }
+        })
+    }
+    if (shapeIndex === 1) {
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowRight') {
+                moveLineRight()
+            }
+        })
+
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowLeft') {
+                moveLineLeft()
+            }
+        })
+    }
+    if (shapeIndex === 2) {
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowRight') {
+                moveTRight()
+            }
+        })
+
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowLeft') {
+                moveTLeft()
+            }
+        })
+    }
+    if (shapeIndex === 3) {
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowRight') {
+                moveSRight()
+            }
+        })
+
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowLeft') {
+                moveSLeft()
+            }
+        })
+    }
+    if (shapeIndex === 4) {
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowRight') {
+                moveZRight()
+            }
+        })
+
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowLeft') {
+                moveZLeft()
+            }
+        })
+    }
+    if (shapeIndex === 5) {
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowRight') {
+                moveLRight()
+            }
+        })
+
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowLeft') {
+                moveLLeft()
+            }
+        })
+    }
+    if (shapeIndex === 6) {
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowRight') {
+                moveJRight()
+            }
+        })
+
+        document.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowLeft') {
+                moveJLeft()
+            }
+        })
+    }
+}
 
 whichInterval = () => {
     if (shapeIndex === 0) {
@@ -94,21 +394,19 @@ whichInterval = () => {
     }
 }
 
+setUp = () => {
+    shapeIndex = Math.floor(Math.random() * 7)
+
+    topLeft = tetrisShapes[shapeIndex][0]
+    topRight = tetrisShapes[shapeIndex][1]
+    bottomLeft = tetrisShapes[shapeIndex][2]
+    bottomRight = tetrisShapes[shapeIndex][3]
+
+    makeTetrisBlock()
+
+}
+
 const play = () => {
-
-    setUp = () => {
-        shapeIndex = Math.floor(Math.random() * 7)
-
-        topLeft = tetrisShapes[shapeIndex][0]
-        topRight = tetrisShapes[shapeIndex][1]
-        bottomLeft = tetrisShapes[shapeIndex][2]
-        bottomRight = tetrisShapes[shapeIndex][3]
-
-        makeTetrisBlock()
-
-    }
-
-    setUp()
 
     const stopSquare = () => {
         if (bottomRight + 10 > 200) {
@@ -373,4 +671,6 @@ const play = () => {
 
 }
 
+setUp()
+whichMove()
 play()
