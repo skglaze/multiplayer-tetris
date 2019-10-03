@@ -10,7 +10,7 @@ const boardArr = document.getElementsByClassName('square')
 const tetrisShapes = [[4, 5, 14, 15], [5, 15, 25, 35], [5, 15, 14, 16], [5, 6, 14, 15], [4, 5, 15, 16], [4, 14, 24, 25], [5, 15, 24, 25]]
 
 let shapeIndex
-
+let interval
 let topLeft
 let topRight
 let bottomLeft
@@ -23,20 +23,8 @@ const makeTetrisBlock = () => {
     boardArr[bottomLeft].classList.add("occupied")
 }
 
-setUp = () => {
-    shapeIndex = 0 //Math.floor(Math.random() * 7)
-
-    topLeft = tetrisShapes[shapeIndex][0]
-    topRight = tetrisShapes[shapeIndex][1]
-    bottomLeft = tetrisShapes[shapeIndex][2]
-    bottomRight = tetrisShapes[shapeIndex][3]
-
-    makeTetrisBlock()
-
-}
-
 const moveRight = () => {
-    if (((topRight + 1) % 10 != 0) && ((boardArr[bottomRight + 1].classList.value != "square occupied") || (boardArr[topRight + 1].classList.value != "square occupied"))) {
+    if (((topRight + 1) % 10 != 0) && ((boardArr[bottomRight + 1].classList.value != "square occupied") && (boardArr[topRight + 1].classList.value != "square occupied"))) {
         topLeft = topLeft + 1
         topRight = topRight + 1
         bottomLeft = bottomLeft + 1
@@ -54,7 +42,7 @@ const moveRight = () => {
 }
 
 const moveLeft = () => {
-    if ((topLeft % 10 != 0) && ((boardArr[bottomLeft - 1].classList.value != "square occupied") || (boardArr[topLeft - 1].classList.value != "square occupied"))) {
+    if ((topLeft % 10 != 0) && ((boardArr[bottomLeft - 1].classList.value != "square occupied") && (boardArr[topLeft - 1].classList.value != "square occupied"))) {
         topLeft = topLeft - 1
         topRight = topRight - 1
         bottomLeft = bottomLeft - 1
@@ -82,254 +70,7 @@ document.addEventListener('keydown', function (event) {
     }
 })
 
-const stopSquare = () => {
-    if (bottomRight + 10 > 200) {
-        clearInterval(interval)
-        play()
-    }
-    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-}
-
-const stopLine = () => {
-    if (bottomRight + 10 > 200) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-    if ((boardArr[bottomRight + 10].classList.value === "square occupied")) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-}
-
-const stopT = () => {
-    if (bottomRight + 10 > 200) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied") || (boardArr[topRight + 10].classList.value === "square occupied")) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-}
-
-const stopS = () => {
-    if (bottomRight + 10 > 200) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied") || (boardArr[topRight + 10].classList.value === "square occupied")) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-}
-
-const stopZ = () => {
-    if (bottomRight + 10 > 200) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied") || (boardArr[topLeft + 10].classList.value === "square occupied")) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-}
-
-const stopL = () => {
-    if (bottomRight + 10 > 200) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-}
-
-const stopJ = () => {
-    if (bottomRight + 10 > 200) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-    if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
-        clearInterval(interval)
-        setUp()
-        play()
-    }
-}
-
-stopCondition = () => {
-    if (shapeIndex === 0) {
-        stopSquare()
-    }
-    if (shapeIndex === 1) {
-        stopLine()
-    }
-    if (shapeIndex === 2) {
-        stopT()
-    }
-    if (shapeIndex === 3) {
-        stopS()
-    }
-    if (shapeIndex === 4) {
-        stopZ()
-    }
-    if (shapeIndex === 5) {
-        stopL()
-    }
-    if (shapeIndex === 6) {
-        stopJ()
-    }
-}
-
-const fallSquare = () => {
-    console.log(topRight)
-    topLeft = topLeft + 10
-    topRight = topRight + 10
-    bottomLeft = bottomLeft + 10
-    bottomRight = bottomRight + 10
-    boardArr[topRight].classList.add("occupied")
-    boardArr[topLeft].classList.add("occupied")
-    boardArr[bottomRight].classList.add("occupied")
-    boardArr[bottomLeft].classList.add("occupied")
-    console.log(topRight)
-
-    boardArr[topRight - 10].classList.remove("occupied")
-    boardArr[topLeft - 10].classList.remove("occupied")
-    stopCondition()
-}
-
-const fallLine = () => {
-    topLeft = topLeft + 10
-    topRight = topRight + 10
-    bottomLeft = bottomLeft + 10
-    bottomRight = bottomRight + 10
-    boardArr[topRight].classList.add("occupied")
-    boardArr[topLeft].classList.add("occupied")
-    boardArr[bottomRight].classList.add("occupied")
-    boardArr[bottomLeft].classList.add("occupied")
-
-    boardArr[topLeft - 10].classList.remove("occupied")
-    stopCondition()
-}
-
-const fallT = () => {
-    topLeft = topLeft + 10
-    topRight = topRight + 10
-    bottomLeft = bottomLeft + 10
-    bottomRight = bottomRight + 10
-    boardArr[topRight].classList.add("occupied")
-    boardArr[topLeft].classList.add("occupied")
-    boardArr[bottomRight].classList.add("occupied")
-    boardArr[bottomLeft].classList.add("occupied")
-
-    boardArr[topLeft - 10].classList.remove("occupied")
-    boardArr[bottomLeft - 10].classList.remove("occupied")
-    boardArr[bottomRight - 10].classList.remove("occupied")
-    stopCondition()
-}
-
-const fallS = () => {
-    topLeft = topLeft + 10
-    topRight = topRight + 10
-    bottomLeft = bottomLeft + 10
-    bottomRight = bottomRight + 10
-    boardArr[topRight].classList.add("occupied")
-    boardArr[topLeft].classList.add("occupied")
-    boardArr[bottomRight].classList.add("occupied")
-    boardArr[bottomLeft].classList.add("occupied")
-
-    boardArr[topRight - 10].classList.remove("occupied")
-    boardArr[topLeft - 10].classList.remove("occupied")
-    boardArr[bottomLeft - 10].classList.remove("occupied")
-    stopCondition()
-}
-
-const fallZ = () => {
-    topLeft = topLeft + 10
-    topRight = topRight + 10
-    bottomLeft = bottomLeft + 10
-    bottomRight = bottomRight + 10
-    boardArr[topRight].classList.add("occupied")
-    boardArr[topLeft].classList.add("occupied")
-    boardArr[bottomRight].classList.add("occupied")
-    boardArr[bottomLeft].classList.add("occupied")
-
-    boardArr[topRight - 10].classList.remove("occupied")
-    boardArr[topLeft - 10].classList.remove("occupied")
-    boardArr[bottomRight - 10].classList.remove("occupied")
-    stopCondition()
-}
-
-const fallL = () => {
-    topLeft = topLeft + 10
-    topRight = topRight + 10
-    bottomLeft = bottomLeft + 10
-    bottomRight = bottomRight + 10
-    boardArr[topRight].classList.add("occupied")
-    boardArr[topLeft].classList.add("occupied")
-    boardArr[bottomRight].classList.add("occupied")
-    boardArr[bottomLeft].classList.add("occupied")
-
-    boardArr[topLeft - 10].classList.remove("occupied")
-    boardArr[bottomRight - 10].classList.remove("occupied")
-    stopCondition()
-}
-
-const fallJ = () => {
-    topLeft = topLeft + 10
-    topRight = topRight + 10
-    bottomLeft = bottomLeft + 10
-    bottomRight = bottomRight + 10
-    boardArr[topRight].classList.add("occupied")
-    boardArr[topLeft].classList.add("occupied")
-    boardArr[bottomRight].classList.add("occupied")
-    boardArr[bottomLeft].classList.add("occupied")
-
-    boardArr[topLeft - 10].classList.remove("occupied")
-    boardArr[bottomLeft - 10].classList.remove("occupied")
-    stopCondition()
-}
-
-whichFall = () => {
-    if (shapeIndex === 0) {
-        fallSquare()
-    }
-    if (shapeIndex === 1) {
-        fallLine()
-    }
-    if (shapeIndex === 2) {
-        fallT()
-    }
-    if (shapeIndex === 3) {
-        fallS()
-    }
-    if (shapeIndex === 4) {
-        fallZ()
-    }
-    if (shapeIndex === 5) {
-        fallL()
-    }
-    if (shapeIndex === 6) {
-        fallJ()
-    }
-}
-
-/*whichInterval = () => {
+whichInterval = () => {
     if (shapeIndex === 0) {
         interval = setInterval(fallSquare, 400)
     }
@@ -351,15 +92,285 @@ whichFall = () => {
     if (shapeIndex === 6) {
         interval = setInterval(fallJ, 400)
     }
-}*/
-
-const play = () => {
-    setUp()
-    //whichInterval()
-    whichFall()
-    interval = setInterval(fallSquare, 8000)
 }
 
-setUp()
-whichFall()
-const interval = setInterval(fallSquare, 8000)
+const play = () => {
+
+    setUp = () => {
+        shapeIndex = Math.floor(Math.random() * 7)
+
+        topLeft = tetrisShapes[shapeIndex][0]
+        topRight = tetrisShapes[shapeIndex][1]
+        bottomLeft = tetrisShapes[shapeIndex][2]
+        bottomRight = tetrisShapes[shapeIndex][3]
+
+        makeTetrisBlock()
+
+    }
+
+    setUp()
+
+    const stopSquare = () => {
+        if (bottomRight + 10 > 200) {
+            clearInterval(interval)
+            play()
+        }
+        if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
+            clearInterval(interval)
+            play()
+        }
+    }
+
+    const stopLine = () => {
+        if (bottomRight + 10 > 200) {
+            clearInterval(interval)
+            play()
+        }
+        if ((boardArr[bottomRight + 10].classList.value === "square occupied")) {
+            clearInterval(interval)
+            play()
+        }
+    }
+
+    const stopT = () => {
+        if (bottomRight + 10 > 200) {
+            clearInterval(interval)
+            play()
+        }
+        if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied") || (boardArr[topRight + 10].classList.value === "square occupied")) {
+            clearInterval(interval)
+            play()
+        }
+    }
+
+    const stopS = () => {
+        if (bottomRight + 10 > 200) {
+            clearInterval(interval)
+            play()
+        }
+        if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied") || (boardArr[topRight + 10].classList.value === "square occupied")) {
+            clearInterval(interval)
+            play()
+        }
+    }
+
+    const stopZ = () => {
+        if (bottomRight + 10 > 200) {
+            clearInterval(interval)
+            play()
+        }
+        if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied") || (boardArr[topLeft + 10].classList.value === "square occupied")) {
+            clearInterval(interval)
+            play()
+        }
+    }
+
+    const stopL = () => {
+        if (bottomRight + 10 > 200) {
+            clearInterval(interval)
+            play()
+        }
+        if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
+            clearInterval(interval)
+            play()
+        }
+    }
+
+    const stopJ = () => {
+        if (bottomRight + 10 > 200) {
+            clearInterval(interval)
+            play()
+        }
+        if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
+            clearInterval(interval)
+            play()
+        }
+    }
+
+
+    stopCondition = () => {
+        if (shapeIndex === 0) {
+            stopSquare()
+        }
+        if (shapeIndex === 1) {
+            stopLine()
+        }
+        if (shapeIndex === 2) {
+            stopT()
+        }
+        if (shapeIndex === 3) {
+            stopS()
+        }
+        if (shapeIndex === 4) {
+            stopZ()
+        }
+        if (shapeIndex === 5) {
+            stopL()
+        }
+        if (shapeIndex === 6) {
+            stopJ()
+        }
+    }
+
+    const fallSquare = () => {
+        console.log(topRight)
+        topLeft = topLeft + 10
+        topRight = topRight + 10
+        bottomLeft = bottomLeft + 10
+        bottomRight = bottomRight + 10
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+        console.log(topRight)
+
+        boardArr[topRight - 10].classList.remove("occupied")
+        boardArr[topLeft - 10].classList.remove("occupied")
+        stopCondition()
+    }
+
+    const fallLine = () => {
+        topLeft = topLeft + 10
+        topRight = topRight + 10
+        bottomLeft = bottomLeft + 10
+        bottomRight = bottomRight + 10
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft - 10].classList.remove("occupied")
+        stopCondition()
+    }
+
+    const fallT = () => {
+        topLeft = topLeft + 10
+        topRight = topRight + 10
+        bottomLeft = bottomLeft + 10
+        bottomRight = bottomRight + 10
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft - 10].classList.remove("occupied")
+        boardArr[bottomLeft - 10].classList.remove("occupied")
+        boardArr[bottomRight - 10].classList.remove("occupied")
+        stopCondition()
+    }
+
+    const fallS = () => {
+        topLeft = topLeft + 10
+        topRight = topRight + 10
+        bottomLeft = bottomLeft + 10
+        bottomRight = bottomRight + 10
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topRight - 10].classList.remove("occupied")
+        boardArr[topLeft - 10].classList.remove("occupied")
+        boardArr[bottomLeft - 10].classList.remove("occupied")
+        stopCondition()
+    }
+
+    const fallZ = () => {
+        topLeft = topLeft + 10
+        topRight = topRight + 10
+        bottomLeft = bottomLeft + 10
+        bottomRight = bottomRight + 10
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topRight - 10].classList.remove("occupied")
+        boardArr[topLeft - 10].classList.remove("occupied")
+        boardArr[bottomRight - 10].classList.remove("occupied")
+        stopCondition()
+    }
+
+    const fallL = () => {
+        topLeft = topLeft + 10
+        topRight = topRight + 10
+        bottomLeft = bottomLeft + 10
+        bottomRight = bottomRight + 10
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft - 10].classList.remove("occupied")
+        boardArr[bottomRight - 10].classList.remove("occupied")
+        stopCondition()
+    }
+
+    const fallJ = () => {
+        topLeft = topLeft + 10
+        topRight = topRight + 10
+        bottomLeft = bottomLeft + 10
+        bottomRight = bottomRight + 10
+        boardArr[topRight].classList.add("occupied")
+        boardArr[topLeft].classList.add("occupied")
+        boardArr[bottomRight].classList.add("occupied")
+        boardArr[bottomLeft].classList.add("occupied")
+
+        boardArr[topLeft - 10].classList.remove("occupied")
+        boardArr[bottomLeft - 10].classList.remove("occupied")
+        stopCondition()
+    }
+
+    whichFall = () => {
+        if (shapeIndex === 0) {
+            fallSquare()
+        }
+        if (shapeIndex === 1) {
+            fallLine()
+        }
+        if (shapeIndex === 2) {
+            fallT()
+        }
+        if (shapeIndex === 3) {
+            fallS()
+        }
+        if (shapeIndex === 4) {
+            fallZ()
+        }
+        if (shapeIndex === 5) {
+            fallL()
+        }
+        if (shapeIndex === 6) {
+            fallJ()
+        }
+    }
+
+    whichInterval = () => {
+        if (shapeIndex === 0) {
+            interval = setInterval(fallSquare, 400)
+        }
+        if (shapeIndex === 1) {
+            interval = setInterval(fallLine, 400)
+        }
+        if (shapeIndex === 2) {
+            interval = setInterval(fallT, 400)
+        }
+        if (shapeIndex === 3) {
+            interval = setInterval(fallS, 400)
+        }
+        if (shapeIndex === 4) {
+            interval = setInterval(fallZ, 400)
+        }
+        if (shapeIndex === 5) {
+            interval = setInterval(fallL, 400)
+        }
+        if (shapeIndex === 6) {
+            interval = setInterval(fallJ, 400)
+        }
+    }
+
+    whichInterval()
+
+}
+
+play()
