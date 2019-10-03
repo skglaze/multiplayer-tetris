@@ -7,12 +7,13 @@ for (i = 0; i < 200; i++) {
 
 const boardArr = document.getElementsByClassName('square')
 
+// this shouldn't be global but it's ok for now
 let topLeft = 4
 let topRight = 5
 let bottomLeft = 14
 let bottomRight = 15
 
-newBlock = () => {
+const newBlock = () => {
     topLeft = 4
     topRight = 5
     bottomLeft = 14
@@ -22,15 +23,15 @@ newBlock = () => {
 newBlock()
 let again = false
 
-makeTetrisBlock = () => {
+const makeTetrisBlock = () => {
     boardArr[topRight].classList.add("occupied")
     boardArr[topLeft].classList.add("occupied")
     boardArr[bottomRight].classList.add("occupied")
     boardArr[bottomLeft].classList.add("occupied")
 }
 
-moveRight = () => {
-    if ((topRight + 1) % 10 != 0) {
+const moveRight = () => {
+    if (((topRight + 1) % 10 != 0) && ((boardArr[bottomRight + 1].classList.value != "square occupied") || (boardArr[topRight + 1].classList.value != "square occupied"))) {
         topLeft = topLeft + 1
         topRight = topRight + 1
         bottomLeft = bottomLeft + 1
@@ -44,10 +45,11 @@ moveRight = () => {
         boardArr[topLeft - 1].classList.remove("occupied")
         boardArr[bottomLeft - 1].classList.remove("occupied")
     }
+
 }
 
-moveLeft = () => {
-    if (topLeft % 10 != 0) {
+const moveLeft = () => {
+    if ((topLeft % 10 != 0) && ((boardArr[bottomLeft - 1].classList.value != "square occupied") || (boardArr[topLeft - 1].classList.value != "square occupied"))) {
         topLeft = topLeft - 1
         topRight = topRight - 1
         bottomLeft = bottomLeft - 1
@@ -63,10 +65,23 @@ moveLeft = () => {
     }
 }
 
-play = () => {
+document.addEventListener('keydown', function (event) {
+    if (event.code === 'ArrowRight') {
+        moveRight()
+    }
+})
+
+document.addEventListener('keydown', function (event) {
+    if (event.code === 'ArrowLeft') {
+        moveLeft()
+    }
+})
+
+
+const play = () => {
     makeTetrisBlock()
 
-    stop = () => {
+    const stop = () => {
         if (bottomRight + 10 > 200) {
             clearInterval(interval)
             newBlock()
@@ -79,19 +94,7 @@ play = () => {
         }
     }
 
-    document.addEventListener('keydown', function (event) {
-        if (event.code === 'ArrowRight') {
-            moveRight()
-        }
-    })
-
-    document.addEventListener('keydown', function (event) {
-        if (event.code === 'ArrowLeft') {
-            moveLeft()
-        }
-    })
-
-    fall = () => {
+    const fall = () => {
         topLeft = topLeft + 10
         topRight = topRight + 10
         bottomLeft = bottomLeft + 10
@@ -106,15 +109,10 @@ play = () => {
         stop()
     }
 
-    const interval = setInterval(fall, 500)
+    const interval = setInterval(fall, 200)
     if (again === true) {
         return again
     }
 }
 
 play()
-if (again === true) {
-    again = false
-    newBlock()
-    play()
-}
