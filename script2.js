@@ -21,7 +21,6 @@ const fall = () => {
 }
 
 const stop = () => {
-    console.log('stop called')
     for (let i = boardArr.length - 1; i >= 0; i--) {
         if (boardArr[i].className === "square occupied") {
             if ((i + 11 > 200) || (boardArr[i + 10].className === "square occupied dead")) {
@@ -36,7 +35,6 @@ const stop = () => {
 }
 
 const moveRight = () => {
-    console.log('moveRight called')
     let movableBlockCount = 0
     for (let i = boardArr.length - 1; i >= 0; i--) {
         if (boardArr[i].className === "square occupied") {
@@ -52,6 +50,7 @@ const moveRight = () => {
                 boardArr[i].classList.remove("occupied")
             }
         }
+        stop()
     }
 }
 
@@ -72,6 +71,7 @@ const moveLeft = () => {
                 boardArr[i].classList.remove("occupied")
             }
         }
+        stop()
     }
 }
 
@@ -82,7 +82,6 @@ const spawnBlock = () => {
             activeBlockCount = activeBlockCount + 1
         }
     }
-    console.log('activeBlockCount', activeBlockCount)
     if (activeBlockCount === 0) {
         shapeIndex = Math.floor(Math.random() * 7)
         for (let i = 0; i < tetrisShapes[shapeIndex].length; i++) {
@@ -92,9 +91,31 @@ const spawnBlock = () => {
     return activeBlockCount
 }
 
+const removeRows = () => {
+    for (let i = 0; i < 10; i++) {
+        let tempArr = []
+        console.log(tempArr.length)
+        for (let j = 0; j < 10; j++) {
+            if (boardArr[(i * 10) + j].className === "square occupied dead") {
+                tempArr.push((i * 10) + j)
+            }
+        }
+        console.log(tempArr.length)
+        if (tempArr.length === 10) {
+            for (let i = 0; i < tempArr.length; i++) {
+                board.removeChild(boardArr[tempArr[i]])
+                const newSquare = document.createElement('div')
+                newSquare.className = "square"
+                board.insertBefore(newSquare, board.firstChild)
+            }
+        }
+    }
+}
+
 const fallFaster = () => {
     fall()
     stop()
+    removeRows()
     spawnBlock()
 }
 
@@ -118,6 +139,7 @@ document.addEventListener('keydown', function (event) {
 mainLoop = () => {
     fall()
     stop()
+    removeRows()
     spawnBlock()
     setTimeout(mainLoop, 500)
 }
