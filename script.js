@@ -15,6 +15,7 @@ let topLeft
 let topRight
 let bottomLeft
 let bottomRight
+let nextBlock
 
 const makeTetrisBlock = () => {
     boardArr[topRight].classList.add("occupied")
@@ -275,98 +276,121 @@ const moveJLeft = () => {
         boardArr[topRight + 1].classList.remove("occupied")
     }
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const moveSquareRightKey = (event) => {
+    if (event.code === 'ArrowRight') {
+        moveSquareRight()
+    }
+}
+
+const moveSquareLeftKey = (event) => {
+    if (event.code === 'ArrowLeft') {
+        moveSquareLeft()
+    }
+}
+
+const moveLineRightKey = (event) => {
+    if (event.code === 'ArrowRight') {
+        moveLineRight()
+    }
+}
+
+const moveLineLeftKey = (event) => {
+    if (event.code === 'ArrowLeft') {
+        moveLineLeft()
+    }
+}
+
+const moveTRightKey = (event) => {
+    if (event.code === 'ArrowRight') {
+        moveTRight()
+    }
+}
+
+const moveTLeftKey = (event) => {
+    if (event.code === 'ArrowLeft') {
+        moveTLeft()
+    }
+}
+
+const moveSRightKey = (event) => {
+    if (event.code === 'ArrowRight') {
+        moveSRight()
+    }
+}
+
+const moveSLeftKey = (event) => {
+    if (event.code === 'ArrowLeft') {
+        moveSLeft()
+    }
+}
+
+const moveZRightKey = (event) => {
+    if (event.code === 'ArrowRight') {
+        moveZRight()
+    }
+}
+
+const moveZLeftKey = (event) => {
+    if (event.code === 'ArrowLeft') {
+        moveZLeft()
+    }
+}
+
+const moveLRightKey = (event) => {
+    if (event.code === 'ArrowRight') {
+        moveLRight()
+    }
+}
+
+const moveLLeftKey = (event) => {
+    if (event.code === 'ArrowLeft') {
+        moveLLeft()
+    }
+}
+
+const moveJRightKey = (event) => {
+    if (event.code === 'ArrowRight') {
+        moveJRight()
+    }
+}
+
+const moveJLeftKey = (event) => {
+    if (event.code === 'ArrowLeft') {
+        moveJLeft()
+    }
+}
 
 whichMove = () => {
     if (shapeIndex === 0) {
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowRight') {
-                moveSquareRight()
-            }
-        })
-
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowLeft') {
-                moveSquareLeft()
-            }
-        })
+        document.addEventListener('keydown', moveSquareRightKey)
+        document.addEventListener('keydown', moveSquareLeftKey)
     }
     if (shapeIndex === 1) {
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowRight') {
-                moveLineRight()
-            }
-        })
-
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowLeft') {
-                moveLineLeft()
-            }
-        })
+        document.addEventListener('keydown', moveTRightKey)
+        document.addEventListener('keydown', moveTLeftKey)
     }
     if (shapeIndex === 2) {
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowRight') {
-                moveTRight()
-            }
-        })
+        document.addEventListener('keydown', moveTRightKey)
 
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowLeft') {
-                moveTLeft()
-            }
-        })
+        document.addEventListener('keydown', moveTLeftKey)
     }
     if (shapeIndex === 3) {
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowRight') {
-                moveSRight()
-            }
-        })
-
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowLeft') {
-                moveSLeft()
-            }
-        })
+        document.addEventListener('keydown', moveSRightKey)
+        document.addEventListener('keydown', moveSLeftKey)
     }
     if (shapeIndex === 4) {
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowRight') {
-                moveZRight()
-            }
-        })
-
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowLeft') {
-                moveZLeft()
-            }
-        })
+        document.addEventListener('keydown', moveZRightKey)
+        document.addEventListener('keydown', moveZLeftKey)
     }
     if (shapeIndex === 5) {
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowRight') {
-                moveLRight()
-            }
-        })
-
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowLeft') {
-                moveLLeft()
-            }
-        })
+        document.addEventListener('keydown', moveLRightKey)
+        document.addEventListener('keydown', moveLLeftKey)
     }
     if (shapeIndex === 6) {
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowRight') {
-                moveJRight()
-            }
-        })
-
-        document.addEventListener('keydown', function (event) {
-            if (event.code === 'ArrowLeft') {
-                moveJLeft()
-            }
-        })
+        document.addEventListener('keydown', moveJRightKey)
+        document.addEventListener('keydown', moveJLeftKey)
     }
 }
 
@@ -411,10 +435,16 @@ const play = () => {
     const stopSquare = () => {
         if (bottomRight + 10 > 200) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveSquareRightKey)
+            document.removeEventListener('keydown', moveSquareLeftKey)
+            setUp()
             play()
         }
         if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveSquareRightKey)
+            document.removeEventListener('keydown', moveSquareLeftKey)
+            setUp()
             play()
         }
     }
@@ -422,10 +452,16 @@ const play = () => {
     const stopLine = () => {
         if (bottomRight + 10 > 200) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveLineRightKey)
+            document.removeEventListener('keydown', moveLineLeftKey)
+            setUp()
             play()
         }
         if ((boardArr[bottomRight + 10].classList.value === "square occupied")) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveLineRightKey)
+            document.removeEventListener('keydown', moveLineLeftKey)
+            setUp()
             play()
         }
     }
@@ -433,10 +469,16 @@ const play = () => {
     const stopT = () => {
         if (bottomRight + 10 > 200) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveTRightKey)
+            document.removeEventListener('keydown', moveTLeftKey)
+            setUp()
             play()
         }
         if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied") || (boardArr[topRight + 10].classList.value === "square occupied")) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveTRightKey)
+            document.removeEventListener('keydown', moveTLeftKey)
+            setUp()
             play()
         }
     }
@@ -444,10 +486,16 @@ const play = () => {
     const stopS = () => {
         if (bottomRight + 10 > 200) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveSRightKey)
+            document.removeEventListener('keydown', moveSLeftKey)
+            setUp()
             play()
         }
         if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied") || (boardArr[topRight + 10].classList.value === "square occupied")) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveSRightKey)
+            document.removeEventListener('keydown', moveSLeftKey)
+            setUp()
             play()
         }
     }
@@ -455,10 +503,16 @@ const play = () => {
     const stopZ = () => {
         if (bottomRight + 10 > 200) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveZRightKey)
+            document.removeEventListener('keydown', moveZLeftKey)
+            setUp()
             play()
         }
         if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied") || (boardArr[topLeft + 10].classList.value === "square occupied")) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveZRightKey)
+            document.removeEventListener('keydown', moveZLeftKey)
+            setUp()
             play()
         }
     }
@@ -466,10 +520,16 @@ const play = () => {
     const stopL = () => {
         if (bottomRight + 10 > 200) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveLRightKey)
+            document.removeEventListener('keydown', moveLLeftKey)
+            setUp()
             play()
         }
         if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveLRightKey)
+            document.removeEventListener('keydown', moveLLeftKey)
+            setUp()
             play()
         }
     }
@@ -477,10 +537,16 @@ const play = () => {
     const stopJ = () => {
         if (bottomRight + 10 > 200) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveJRightKey)
+            document.removeEventListener('keydown', moveJLeftKey)
+            setUp()
             play()
         }
         if ((boardArr[bottomRight + 10].classList.value === "square occupied") || (boardArr[bottomLeft + 10].classList.value === "square occupied")) {
             clearInterval(interval)
+            document.removeEventListener('keydown', moveJRightKey)
+            document.removeEventListener('keydown', moveJLeftKey)
+            setUp()
             play()
         }
     }
@@ -668,9 +734,9 @@ const play = () => {
     }
 
     whichInterval()
+    whichMove()
 
 }
 
 setUp()
-whichMove()
 play()

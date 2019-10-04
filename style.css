@@ -19,10 +19,10 @@ header {
     float: left;
     width: 30px;
     height: 30px;
-    background: black;
+    background: beige;
     margin: 0;
   }
 
   .occupied {
-      background: green;
+      background: blue;
   }
