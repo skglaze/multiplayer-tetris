@@ -5,7 +5,7 @@ for (i = 0; i < 200; i++) {
     board.appendChild(newSquares)
 }
 
-const tetrisShapes = [[4, 5, 14, 15], [5, 15, 25, 35], [5, 15, 14, 16], [5, 6, 14, 15], [4, 5, 15, 16], [4, 14, 24, 25], [5, 15, 24, 25]]
+const tetrisShapes = [[4, 5, 14, 15], [5, 15, 25, 35], [5, 4, 6, 15], [5, 6, 14, 15], [4, 5, 15, 16], [4, 14, 24, 25], [5, 15, 24, 25]]
 const boardArr = document.getElementsByClassName('square')
 let shapeIndex
 
@@ -38,7 +38,7 @@ const moveRight = () => {
     let movableBlockCount = 0
     for (let i = boardArr.length - 1; i >= 0; i--) {
         if (boardArr[i].className === "square occupied") {
-            if (((i + 1) % 10 != 0) && (boardArr[i - 1].className != "square occupied dead")) {
+            if (((i + 1) % 10 != 0) && (boardArr[i + 1].className != "square occupied dead")) {
                 movableBlockCount = movableBlockCount + 1
             }
         }
@@ -55,7 +55,6 @@ const moveRight = () => {
 }
 
 const moveLeft = () => {
-    console.log('moveLeft called')
     let movableBlockCount = 0
     for (let i = 0; i < boardArr.length; i++) {
         if (boardArr[i].className === "square occupied") {
@@ -73,6 +72,10 @@ const moveLeft = () => {
         }
         stop()
     }
+}
+
+const rotateShape = () => {
+
 }
 
 const spawnBlock = () => {

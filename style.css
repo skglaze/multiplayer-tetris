@@ -21,8 +21,10 @@ header {
     height: 30px;
     background: beige;
     margin: 0;
+    outline: 1px solid black;
   }
 
   .occupied {
       background: blue;
+      outline: 1px solid red;
   }
