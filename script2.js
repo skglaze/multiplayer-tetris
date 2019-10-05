@@ -92,6 +92,7 @@ const rotateShape = () => {
             shapeIndex = 11
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 11) {
         let tempArr = []
@@ -110,6 +111,7 @@ const rotateShape = () => {
             shapeIndex = 1
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 2) {
         let tempArr = []
@@ -124,6 +126,7 @@ const rotateShape = () => {
             shapeIndex = 21
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 21) {
         let tempArr = []
@@ -138,6 +141,7 @@ const rotateShape = () => {
             shapeIndex = 22
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 22) {
         let tempArr = []
@@ -152,6 +156,7 @@ const rotateShape = () => {
             shapeIndex = 23
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 23) {
         let tempArr = []
@@ -166,6 +171,7 @@ const rotateShape = () => {
             shapeIndex = 2
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 3) {
         let tempArr = []
@@ -184,6 +190,7 @@ const rotateShape = () => {
             shapeIndex = 31
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 31) {
         let tempArr = []
@@ -200,6 +207,7 @@ const rotateShape = () => {
             shapeIndex = 3
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 4) {
         let tempArr = []
@@ -216,6 +224,7 @@ const rotateShape = () => {
             shapeIndex = 41
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 41) {
         let tempArr = []
@@ -232,6 +241,7 @@ const rotateShape = () => {
             shapeIndex = 4
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 5) {
         let tempArr = []
@@ -250,6 +260,7 @@ const rotateShape = () => {
             shapeIndex = 51
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 51) {
         let tempArr = []
@@ -268,6 +279,7 @@ const rotateShape = () => {
             shapeIndex = 52
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 52) {
         let tempArr = []
@@ -286,6 +298,7 @@ const rotateShape = () => {
             shapeIndex = 53
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 53) {
         let tempArr = []
@@ -304,6 +317,7 @@ const rotateShape = () => {
             shapeIndex = 5
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 6) {
         let tempArr = []
@@ -322,6 +336,7 @@ const rotateShape = () => {
             shapeIndex = 61
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 61) {
         let tempArr = []
@@ -340,6 +355,7 @@ const rotateShape = () => {
             shapeIndex = 62
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 62) {
         let tempArr = []
@@ -358,6 +374,7 @@ const rotateShape = () => {
             shapeIndex = 63
             return shapeIndex
         }
+        stop()
     }
     if (shapeIndex === 63) {
         let tempArr = []
@@ -366,7 +383,7 @@ const rotateShape = () => {
                 tempArr.push(i)
             }
         }
-        if ((boardArr[tempArr[1] + 10].className != "square occupied") && (boardArr[tempArr[1] + 10].className != "square occupied dead") && (boardArr[tempArr[1] - 10].className != "square occupied") && (boardArr[tempArr[1] - 10].className != "square occupied dead") && (boardArr[tempArr[1] + 9].className != "square occupied dead") && (boardArr[tempArr[1] + 99].className != "square occupied dead")) {
+        if ((boardArr[tempArr[1] + 10].className != "square occupied") && (boardArr[tempArr[1] + 10].className != "square occupied dead") && (boardArr[tempArr[1] - 10].className != "square occupied") && (boardArr[tempArr[1] - 10].className != "square occupied dead") && (boardArr[tempArr[1] + 9].className != "square occupied dead") && (boardArr[tempArr[1] + 9].className != "square occupied dead")) {
             boardArr[tempArr[0]].classList.remove("occupied")
             boardArr[tempArr[2]].classList.remove("occupied")
             boardArr[tempArr[3]].classList.remove("occupied")
@@ -376,6 +393,7 @@ const rotateShape = () => {
             shapeIndex = 6
             return shapeIndex
         }
+        stop()
     }
 }
 
