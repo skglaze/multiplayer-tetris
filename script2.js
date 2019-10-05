@@ -75,7 +75,42 @@ const moveLeft = () => {
 }
 
 const rotateShape = () => {
-
+    if (shapeIndex === 1) {
+        let tempArr = []
+        for (let i = 0; i < boardArr.length; i++) {
+            if (boardArr[i].className === "square occupied") {
+                tempArr.push(i)
+            }
+        }
+        if ((tempArr[1] % 10 != 0) && (boardArr[tempArr[1] - 1].className != "square occupied") && (boardArr[tempArr[1] - 1].className != "square occupied dead") && (boardArr[tempArr[1] + 1].className != "square occupied") && (boardArr[tempArr[1] + 1].className != "square occupied dead") && (boardArr[tempArr[1] + 2].className != "square occupied") && (boardArr[tempArr[1] + 2].className != "square occupied dead") && ((tempArr[1] + 1) % 10 != 0) && ((tempArr[1] + 2) % 10 != 0)) {
+            boardArr[tempArr[0]].classList.remove("occupied")
+            boardArr[tempArr[2]].classList.remove("occupied")
+            boardArr[tempArr[3]].classList.remove("occupied")
+            boardArr[tempArr[1] - 1].classList.add('occupied')
+            boardArr[tempArr[1] + 1].classList.add('occupied')
+            boardArr[tempArr[1] + 2].classList.add('occupied')
+            shapeIndex = 11
+            return shapeIndex
+        }
+    }
+    if (shapeIndex === 11) {
+        let tempArr = []
+        for (let i = 0; i < boardArr.length; i++) {
+            if (boardArr[i].className === "square occupied") {
+                tempArr.push(i)
+            }
+        }
+        if ((boardArr[tempArr[1] - 10].className != "square occupied") && (boardArr[tempArr[1] - 10].className != "square occupied dead") && (boardArr[tempArr[1] + 10].className != "square occupied") && (boardArr[tempArr[1] + 10].className != "square occupied dead") && (boardArr[tempArr[1] + 20].className != "square occupied") && (boardArr[tempArr[1] + 20].className != "square occupied dead")) {
+            boardArr[tempArr[0]].classList.remove("occupied")
+            boardArr[tempArr[2]].classList.remove("occupied")
+            boardArr[tempArr[3]].classList.remove("occupied")
+            boardArr[tempArr[1] - 10].classList.add('occupied')
+            boardArr[tempArr[1] + 10].classList.add('occupied')
+            boardArr[tempArr[1] + 20].classList.add('occupied')
+            shapeIndex = 1
+            return shapeIndex
+        }
+    }
 }
 
 const spawnBlock = () => {
@@ -91,7 +126,7 @@ const spawnBlock = () => {
             boardArr[tetrisShapes[shapeIndex][i]].classList.add("occupied")
         }
     }
-    return activeBlockCount
+    return shapeIndex
 }
 
 const removeRows = () => {
@@ -128,6 +163,11 @@ document.addEventListener('keydown', function (event) {
     }
 })
 document.addEventListener('keydown', function (event) {
+    if (event.code === 'ArrowUp') {
+        rotateShape()
+    }
+})
+document.addEventListener('keydown', function (event) {
     if (event.code === 'ArrowRight') {
         moveRight()
     }
@@ -144,7 +184,7 @@ mainLoop = () => {
     stop()
     removeRows()
     spawnBlock()
-    setTimeout(mainLoop, 500)
+    setTimeout(mainLoop, 600)
 }
 
 mainLoop()
