@@ -193,13 +193,45 @@ const rotateShape = () => {
                 tempArr.push(i)
             }
         }
-        console.log(tempArr)
         if ((boardArr[tempArr[1] + 10].className != "square occupied") && (boardArr[tempArr[1] + 10].className != "square occupied dead") && (boardArr[tempArr[1] + 9].className != "square occupied") && (boardArr[tempArr[1] + 9].className != "square occupied dead") && (tempArr[1] % 10 != 0) && ((tempArr[2] + 1) % 10 != 0)) {
             boardArr[tempArr[0]].classList.remove("occupied")
             boardArr[tempArr[3]].classList.remove("occupied")
             boardArr[tempArr[1] + 9].classList.add('occupied')
             boardArr[tempArr[1] + 10].classList.add('occupied')
             shapeIndex = 3
+            return shapeIndex
+        }
+    }
+    if (shapeIndex === 4) {
+        let tempArr = []
+        for (let i = 0; i < boardArr.length; i++) {
+            if (boardArr[i].className === "square occupied") {
+                tempArr.push(i)
+            }
+        }
+        console.log(tempArr)
+        if ((boardArr[tempArr[1] - 10].className != "square occupied") && (boardArr[tempArr[1] - 10].className != "square occupied dead") && (boardArr[tempArr[1] + 9].className != "square occupied") && (boardArr[tempArr[1] + 9].className != "square occupied dead")) {
+            boardArr[tempArr[2]].classList.remove("occupied")
+            boardArr[tempArr[3]].classList.remove("occupied")
+            boardArr[tempArr[1] + 9].classList.add('occupied')
+            boardArr[tempArr[1] - 10].classList.add('occupied')
+            shapeIndex = 41
+            return shapeIndex
+        }
+    }
+    if (shapeIndex === 41) {
+        let tempArr = []
+        for (let i = 0; i < boardArr.length; i++) {
+            if (boardArr[i].className === "square occupied") {
+                tempArr.push(i)
+            }
+        }
+        if ((boardArr[tempArr[2] + 10].className != "square occupied") && (boardArr[tempArr[2] + 10].className != "square occupied dead") && (boardArr[tempArr[2] + 11].className != "square occupied") && (boardArr[tempArr[2] + 11].className != "square occupied dead") && ((tempArr[2] + 1) % 10 != 0) && (tempArr[1] % 10 != 0)) {
+            boardArr[tempArr[0]].classList.remove("occupied")
+            boardArr[tempArr[3]].classList.remove("occupied")
+            boardArr[tempArr[2] + 11].classList.add('occupied')
+            boardArr[tempArr[2] + 10].classList.add('occupied')
+            shapeIndex = 4
             return shapeIndex
         }
     }
