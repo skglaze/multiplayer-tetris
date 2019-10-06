@@ -8,6 +8,10 @@ for (i = 0; i < 200; i++) {
 const tetrisShapes = [[4, 5, 14, 15], [5, 15, 25, 35], [5, 4, 6, 15], [5, 6, 14, 15], [4, 5, 15, 16], [4, 14, 24, 25], [5, 15, 24, 25]]
 const boardArr = document.getElementsByClassName('square')
 let shapeIndex
+const titleColors = ['#39ff14', '#fe019a']
+const title = document.getElementsByTagName('span')
+let rowCounter = 0
+let score = 0
 
 const fall = () => {
     for (let i = boardArr.length - 1; i >= 0; i--) {
@@ -407,9 +411,11 @@ const spawnBlock = () => {
     if (activeBlockCount === 0) {
         shapeIndex = Math.floor(Math.random() * 7)
         for (let i = 0; i < tetrisShapes[shapeIndex].length; i++) {
+            if (boardArr[tetrisShapes[shapeIndex][i]].className === "square occupied dead") {
+                alert("You Lose!!")
+            }
             boardArr[tetrisShapes[shapeIndex][i]].classList.add("occupied")
         }
-        console.log(shapeIndex)
     }
     return shapeIndex
 }
@@ -428,8 +434,48 @@ const removeRows = () => {
                 const newSquare = document.createElement('div')
                 newSquare.className = "square"
                 board.insertBefore(newSquare, board.firstChild)
+                rowCounter = rowCounter + 1
             }
         }
+    }
+    if (rowCounter === 10) {
+        score = score + 100
+    }
+    if (rowCounter === 20) {
+        score = score + 200
+    }
+    if (rowCounter === 30) {
+        score = score + 400
+    }
+    if (rowCounter === 40) {
+        score = score + 1200
+    }
+    rowCounter = 0
+    document.getElementById("yourScore").innerHTML = `your score ${score}`
+    return score
+}
+
+increaseSpeed = () => {
+    if (score < 500) {
+        setTimeout(mainLoop, 800)
+    }
+    if (score >= 500) {
+        setTimeout(mainLoop, 700)
+    }
+    if (score >= 750) {
+        setTimeout(mainLoop, 600)
+    }
+    if (score >= 1000) {
+        setTimeout(mainLoop, 500)
+    }
+    if (score >= 1500) {
+        setTimeout(mainLoop, 400)
+    }
+    if (score >= 2000) {
+        setTimeout(mainLoop, 300)
+    }
+    if (score >= 3000) {
+        setTimeout(mainLoop, 200)
     }
 }
 
@@ -467,7 +513,8 @@ mainLoop = () => {
     stop()
     removeRows()
     spawnBlock()
-    setTimeout(mainLoop, 600)
+    //increaseSpeed()
+    setTimeout(mainLoop, 300)
 }
 
 mainLoop()

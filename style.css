@@ -3,12 +3,55 @@
     width: 1000px;
     margin: 0 auto;
 }
-body {
-    border: 2px solid black;
+body{
+    background: linear-gradient(black, rgb(43, 43, 43))
 }
 header {
     text-align: center;
     font-size: 50px;
+    font-family: 'Bangers', cursive;
+    margin-bottom: 20px;
+}
+#coloredTitle {
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Bangers', cursive;
+    padding-bottom: 20px;
+    color:	#39ff14;
+}
+span {
+    display: inline-block;
+    width: 59px;
+    color: white;
+    height: 56px;
+    margin: -2px;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    font-size: 45px;
+    border-radius: 10px;
+}
+#t {
+    background: black;
+    border: 4px #fe019a solid;
+}
+#e {
+    background: black;
+    border: 4px #39ff14 solid;
+}
+#t {
+    background: black;
+    border: 4px #fe019a solid;  
+}
+#r {
+    background: black;
+    border: 4px #39ff14 solid;
+}
+#i {
+    background: black;
+    border: 4px #fe019a solid;
+}
+#s {
+    background: black;
+    border: 4px #39ff14 solid;
 }
 #board {
     width: 300px;
@@ -19,12 +62,55 @@ header {
     float: left;
     width: 30px;
     height: 30px;
-    background: beige;
+    background: black;
     margin: 0;
-    outline: 1px solid black;
-  }
+    outline: 3px solid black;
+}
 
-  .occupied {
-      background: blue;
-      outline: 1px solid red;
-  }
+.occupied {
+      background: 	#39ff14;
+}
+
+.dead {
+      background: 	#fe019a;
+}
+#coverScreen{
+    height: 1;
+}
+aside{
+    float: right;
+    width: 200px;
+    padding-right: 100px;
+}
+#highScore{
+    background: black;
+    color: white;
+    margin-left: 20px;
+    width: 140px;
+    text-align: center;
+    font-family: 'Bangers', cursive;
+    font-size: 30px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 3px #fe019a solid;
+}
+#yourScore{
+    background: black;
+    color: white;
+    margin-left: 20px;
+    width: 140px;
+    text-align: center;
+    font-family: 'Bangers', cursive;
+    font-size: 30px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    height: 62px;
+    border: 3px #39ff14 solid;
+}
+main {
+    margin: 0 auto;
+    width: 400px;
+    float: left;
+    padding-left: 300px;
+}
