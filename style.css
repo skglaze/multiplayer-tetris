@@ -113,4 +113,5 @@ main {
     width: 400px;
     float: left;
     padding-left: 300px;
+    height: 100vh;
 }

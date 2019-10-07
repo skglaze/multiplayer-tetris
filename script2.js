@@ -488,6 +488,11 @@ const fallFaster = () => {
 
 document.addEventListener('keydown', function (event) {
     if (event.code === 'ArrowDown') {
+        event.preventDefault()
+    }
+})
+document.addEventListener('keydown', function (event) {
+    if (event.code === 'ArrowDown') {
         fallFaster()
     }
 })
