@@ -450,6 +450,9 @@ const removeRows = () => {
     if (rowCounter === 40) {
         score = score + 1200
     }
+    if (score > 2000) {
+        document.getElementById("highScore").innerHTML = `high score ${score}`
+    }
     rowCounter = 0
     document.getElementById("yourScore").innerHTML = `your score ${score}`
     return score
