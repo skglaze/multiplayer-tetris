@@ -1,4 +1,5 @@
 const board = document.getElementById('board')
+let mainTimer
 for (i = 0; i < 200; i++) {
     const newSquares = document.createElement('div')
     newSquares.className = "square"
@@ -12,6 +13,7 @@ const titleColors = ['#39ff14', '#fe019a']
 const title = document.getElementsByTagName('span')
 let rowCounter = 0
 let score = 0
+let highScore = 2000
 
 const fall = () => {
     for (let i = boardArr.length - 1; i >= 0; i--) {
@@ -401,6 +403,27 @@ const rotateShape = () => {
     }
 }
 
+const gameOver = () => {
+    // anime({
+    //     targets: '.square',
+    //     background: '#fe019a',
+    //     delay: anime.stagger(5) // increase delay by 100ms for each elements.
+    // });
+
+    for (let i = 0; i < boardArr.length; i++) {
+        boardArr[i].classList.add("dead")
+    }
+    score = 0
+    return score
+}
+
+const clearBoard = () => {
+    for (let i = 0; i < boardArr.length; i++) {
+        boardArr[i].classList.remove("dead")
+        boardArr[i].classList.remove("occupied")
+    }
+}
+
 const spawnBlock = () => {
     let activeBlockCount = 0
     for (let i = 0; i < boardArr.length; i++) {
@@ -412,7 +435,8 @@ const spawnBlock = () => {
         shapeIndex = Math.floor(Math.random() * 7)
         for (let i = 0; i < tetrisShapes[shapeIndex].length; i++) {
             if (boardArr[tetrisShapes[shapeIndex][i]].className === "square occupied dead") {
-                alert("You Lose!!")
+                stopGame()
+                gameOver()
             }
             boardArr[tetrisShapes[shapeIndex][i]].classList.add("occupied")
         }
@@ -450,37 +474,43 @@ const removeRows = () => {
     if (rowCounter === 40) {
         score = score + 1200
     }
-    if (score > 2000) {
-        document.getElementById("highScore").innerHTML = `high score ${score}`
+    if (score > highScore) {
+        highScore = score
+        document.getElementById("highScore").innerHTML = `high score ${highScore}`
     }
     rowCounter = 0
     document.getElementById("yourScore").innerHTML = `your score ${score}`
     return score
 }
 
-increaseSpeed = () => {
-    if (score < 500) {
-        setTimeout(mainLoop, 800)
-    }
-    if (score >= 500) {
-        setTimeout(mainLoop, 700)
-    }
-    if (score >= 750) {
-        setTimeout(mainLoop, 600)
-    }
-    if (score >= 1000) {
-        setTimeout(mainLoop, 500)
-    }
-    if (score >= 1500) {
-        setTimeout(mainLoop, 400)
-    }
-    if (score >= 2000) {
-        setTimeout(mainLoop, 300)
-    }
-    if (score >= 3000) {
-        setTimeout(mainLoop, 200)
-    }
+stopGame = () => {
+    clearTimeout(mainTimer)
 }
+
+//const increaseSpeed = () => {
+//    clearTimeout(mainTimer)
+//     if (score < 500) {
+//         setTimeout(mainLoop, 800)
+//     }
+//     if (score >= 500) {
+//         setTimeout(mainLoop, 700)
+//     }
+//     if (score >= 750) {
+//         setTimeout(mainLoop, 600)
+//     }
+//     if (score >= 1000) {
+//         setTimeout(mainLoop, 500)
+//     }
+//     if (score >= 1500) {
+//         setTimeout(mainLoop, 400)
+//     }
+//     if (score >= 2000) {
+//         setTimeout(mainLoop, 300)
+//     }
+//     if (score >= 3000) {
+//         setTimeout(mainLoop, 200)
+//     }
+// }
 
 const fallFaster = () => {
     fall()
@@ -515,14 +545,16 @@ document.addEventListener('keydown', function (event) {
     }
 })
 
-
-mainLoop = () => {
+const mainLoop = () => {
     fall()
     stop()
     removeRows()
     spawnBlock()
-    //increaseSpeed()
-    setTimeout(mainLoop, 300)
+    mainTimer = setTimeout(mainLoop, 200)
+    console.log(shapeIndex)
 }
 
-mainLoop()
+document.getElementById('play').addEventListener('click', clearBoard)
+document.getElementById('play').addEventListener('click', mainLoop)
+
+
