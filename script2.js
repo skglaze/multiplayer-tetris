@@ -1,3 +1,4 @@
+//This section creates the board of divs that the game is played on.
 const board = document.getElementById('board')
 let mainTimer
 for (i = 0; i < 200; i++) {
@@ -6,6 +7,7 @@ for (i = 0; i < 200; i++) {
     board.appendChild(newSquares)
 }
 
+//This section instantiates my global variables.
 const tetrisShapes = [[4, 5, 14, 15], [5, 15, 25, 35], [5, 4, 6, 15], [5, 6, 14, 15], [4, 5, 15, 16], [4, 14, 24, 25], [5, 15, 24, 25]]
 const boardArr = document.getElementsByClassName('square')
 let shapeIndex
@@ -15,6 +17,7 @@ let rowCounter = 0
 let score = 0
 let highScore = 2000
 
+//This is the function that makes the shapes move down.
 const fall = () => {
     for (let i = boardArr.length - 1; i >= 0; i--) {
         if (boardArr[i].className === "square occupied") {
@@ -26,6 +29,7 @@ const fall = () => {
     }
 }
 
+//This is the function that checks to see if the shape can move down. If not it freezes the shape.
 const stop = () => {
     for (let i = boardArr.length - 1; i >= 0; i--) {
         if (boardArr[i].className === "square occupied") {
@@ -40,6 +44,7 @@ const stop = () => {
     }
 }
 
+//This function allows the shapes to move right.
 const moveRight = () => {
     let movableBlockCount = 0
     for (let i = boardArr.length - 1; i >= 0; i--) {
@@ -60,6 +65,7 @@ const moveRight = () => {
     }
 }
 
+//This function allows the shapes to move left.
 const moveLeft = () => {
     let movableBlockCount = 0
     for (let i = 0; i < boardArr.length; i++) {
@@ -80,6 +86,7 @@ const moveLeft = () => {
     }
 }
 
+//This function allows the shapes to rotate.
 const rotateShape = () => {
     if (shapeIndex === 1) {
         let tempArr = []
@@ -403,6 +410,7 @@ const rotateShape = () => {
     }
 }
 
+//This function is called when no more shapes can be spawned.
 const gameOver = () => {
     // anime({
     //     targets: '.square',
@@ -417,6 +425,7 @@ const gameOver = () => {
     return score
 }
 
+//This function clears the board before every new game.
 const clearBoard = () => {
     for (let i = 0; i < boardArr.length; i++) {
         boardArr[i].classList.remove("dead")
@@ -424,6 +433,7 @@ const clearBoard = () => {
     }
 }
 
+//This function spanws the shapes at the top of the board.
 const spawnBlock = () => {
     let activeBlockCount = 0
     for (let i = 0; i < boardArr.length; i++) {
@@ -444,6 +454,7 @@ const spawnBlock = () => {
     return shapeIndex
 }
 
+//This function checks to see if there are complete rows that can be removed and it adjusts the score accordingly.
 const removeRows = () => {
     for (let i = 0; i < 20; i++) {
         let tempArr = []
@@ -483,6 +494,7 @@ const removeRows = () => {
     return score
 }
 
+//This function stops the game by clearing the timeout loop.
 stopGame = () => {
     clearTimeout(mainTimer)
 }
@@ -512,6 +524,7 @@ stopGame = () => {
 //     }
 // }
 
+//This function allows the player to increase fall speed.
 const fallFaster = () => {
     fall()
     stop()
@@ -519,6 +532,7 @@ const fallFaster = () => {
     spawnBlock()
 }
 
+//These attach event listeners to left, right, down, and up arrow keys as well as preventing default scrolling on the down key.
 document.addEventListener('keydown', function (event) {
     if (event.code === 'ArrowDown') {
         event.preventDefault()
@@ -545,6 +559,7 @@ document.addEventListener('keydown', function (event) {
     }
 })
 
+//This function is the main loop of the game.
 const mainLoop = () => {
     fall()
     stop()
@@ -554,6 +569,7 @@ const mainLoop = () => {
     console.log(shapeIndex)
 }
 
+//This gives the play button the ability to start the game.
 document.getElementById('play').addEventListener('click', clearBoard)
 document.getElementById('play').addEventListener('click', mainLoop)
 

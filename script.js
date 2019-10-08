@@ -1,3 +1,24 @@
+//
+//
+//
+//
+//
+//
+//
+//
+//   THIS IS OLD CODE AND IS NOT IN USE IN THE GAME
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 const board = document.getElementById('board')
 for (i = 0; i < 200; i++) {
     const newSquares = document.createElement('div')
