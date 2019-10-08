@@ -1,6 +1,7 @@
 //This section creates the board of divs that the game is played on.
 const board = document.getElementById('board')
 let mainTimer
+let gameActive = false;
 for (i = 0; i < 200; i++) {
     const newSquares = document.createElement('div')
     newSquares.className = "square"
@@ -417,7 +418,6 @@ const gameOver = () => {
     //     background: '#fe019a',
     //     delay: anime.stagger(5) // increase delay by 100ms for each elements.
     // });
-
     for (let i = 0; i < boardArr.length; i++) {
         boardArr[i].classList.add("dead")
     }
@@ -447,6 +447,7 @@ const spawnBlock = () => {
             if (boardArr[tetrisShapes[shapeIndex][i]].className === "square occupied dead") {
                 stopGame()
                 gameOver()
+                return
             }
             boardArr[tetrisShapes[shapeIndex][i]].classList.add("occupied")
         }
@@ -496,6 +497,7 @@ const removeRows = () => {
 
 //This function stops the game by clearing the timeout loop.
 stopGame = () => {
+    gameActive = false;
     clearTimeout(mainTimer)
 }
 
@@ -565,12 +567,21 @@ const mainLoop = () => {
     stop()
     removeRows()
     spawnBlock()
-    mainTimer = setTimeout(mainLoop, 500)
+    if (gameActive === true) {
+        mainTimer = setTimeout(mainLoop, 275)
+    }
     console.log(shapeIndex)
 }
 
+const startGame = () => {
+
+}
 //This gives the play button the ability to start the game.
-document.getElementById('play').addEventListener('click', clearBoard)
-document.getElementById('play').addEventListener('click', mainLoop)
+
+document.getElementById('play').addEventListener('click', () => {
+    gameActive = true;
+    clearBoard()
+    mainLoop()
+})
 
 
