@@ -550,7 +550,7 @@ const mainLoop = () => {
     stop()
     removeRows()
     spawnBlock()
-    mainTimer = setTimeout(mainLoop, 300)
+    mainTimer = setTimeout(mainLoop, 500)
     console.log(shapeIndex)
 }
 
