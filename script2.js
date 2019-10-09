@@ -411,6 +411,16 @@ const rotateShape = () => {
     }
 }
 
+const shadowShape = () => {
+    let tempArr = []
+    for (let i = 0; i < boardArr.length; i++) {
+        if (boardArr[i].className = "square occupied") {
+
+        }
+    }
+}
+
+
 //This function is called when no more shapes can be spawned.
 const gameOver = () => {
     // anime({
@@ -421,12 +431,13 @@ const gameOver = () => {
     for (let i = 0; i < boardArr.length; i++) {
         boardArr[i].classList.add("dead")
     }
-    score = 0
+    //score = 0
     return score
 }
 
 //This function clears the board before every new game.
 const clearBoard = () => {
+    score = 0
     for (let i = 0; i < boardArr.length; i++) {
         boardArr[i].classList.remove("dead")
         boardArr[i].classList.remove("occupied")
@@ -501,30 +512,29 @@ stopGame = () => {
     clearTimeout(mainTimer)
 }
 
-//const increaseSpeed = () => {
-//    clearTimeout(mainTimer)
-//     if (score < 500) {
-//         setTimeout(mainLoop, 800)
-//     }
-//     if (score >= 500) {
-//         setTimeout(mainLoop, 700)
-//     }
-//     if (score >= 750) {
-//         setTimeout(mainLoop, 600)
-//     }
-//     if (score >= 1000) {
-//         setTimeout(mainLoop, 500)
-//     }
-//     if (score >= 1500) {
-//         setTimeout(mainLoop, 400)
-//     }
-//     if (score >= 2000) {
-//         setTimeout(mainLoop, 300)
-//     }
-//     if (score >= 3000) {
-//         setTimeout(mainLoop, 200)
-//     }
-// }
+const changeSpeed = () => {
+    if (score < 500) {
+        setTimeout(mainLoop, 800)
+    }
+    if ((score >= 500) && (score < 750)) {
+        setTimeout(mainLoop, 700)
+    }
+    if ((score >= 750) && (score < 1000)) {
+        setTimeout(mainLoop, 600)
+    }
+    if ((score >= 1000) && (score < 1500)) {
+        setTimeout(mainLoop, 500)
+    }
+    if ((score >= 1500) && (score < 2000)) {
+        setTimeout(mainLoop, 400)
+    }
+    if ((score >= 2000) && (score < 3000)) {
+        setTimeout(mainLoop, 300)
+    }
+    if (score >= 3000) {
+        setTimeout(mainLoop, 200)
+    }
+}
 
 //This function allows the player to increase fall speed.
 const fallFaster = () => {
@@ -568,16 +578,11 @@ const mainLoop = () => {
     removeRows()
     spawnBlock()
     if (gameActive === true) {
-        mainTimer = setTimeout(mainLoop, 275)
+        changeSpeed()
     }
-    console.log(shapeIndex)
 }
 
-const startGame = () => {
-
-}
 //This gives the play button the ability to start the game.
-
 document.getElementById('play').addEventListener('click', () => {
     gameActive = true;
     clearBoard()
