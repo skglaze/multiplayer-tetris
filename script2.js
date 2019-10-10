@@ -411,27 +411,27 @@ const rotateShape = () => {
     }
 }
 
-const shadowShape = () => {
-    let tempArr = []
-    for (let i = 0; i < boardArr.length; i++) {
-        if (boardArr[i].className = "square occupied") {
+// const shadowShape = () => {
+//     let tempArr = []
+//     let tempNum
+//     for (let i = boardArr.length; i >= 0; i++) {
+//         if (boardArr[i].className = "square occupied") {
+//             tempNum = i
+//             for (let i = 0; i < boardArr.length; i--) {
+//                 if ((boardArr[i] - boardArr[tempNum]) % 10 === 0){
 
-        }
-    }
-}
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 //This function is called when no more shapes can be spawned.
 const gameOver = () => {
-    // anime({
-    //     targets: '.square',
-    //     background: '#fe019a',
-    //     delay: anime.stagger(5) // increase delay by 100ms for each elements.
-    // });
     for (let i = 0; i < boardArr.length; i++) {
         boardArr[i].classList.add("dead")
     }
-    //score = 0
     return score
 }
 
@@ -513,25 +513,25 @@ stopGame = () => {
 }
 
 const changeSpeed = () => {
-    if (score < 500) {
+    if (score < 750) {
         setTimeout(mainLoop, 800)
     }
-    if ((score >= 500) && (score < 750)) {
+    if ((score >= 750) && (score < 1000)) {
         setTimeout(mainLoop, 700)
     }
-    if ((score >= 750) && (score < 1000)) {
+    if ((score >= 1000) && (score < 2000)) {
         setTimeout(mainLoop, 600)
     }
-    if ((score >= 1000) && (score < 1500)) {
+    if ((score >= 2000) && (score < 3000)) {
         setTimeout(mainLoop, 500)
     }
-    if ((score >= 1500) && (score < 2000)) {
+    if ((score >= 3000) && (score < 5000)) {
         setTimeout(mainLoop, 400)
     }
-    if ((score >= 2000) && (score < 3000)) {
+    if ((score >= 5000) && (score < 10000)) {
         setTimeout(mainLoop, 300)
     }
-    if (score >= 3000) {
+    if (score >= 10000) {
         setTimeout(mainLoop, 200)
     }
 }
