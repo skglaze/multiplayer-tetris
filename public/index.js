@@ -1,11 +1,23 @@
+//Make connection
+const socket = io.connect('localhost:3000')
+
 //This section creates the board of divs that the game is played on.
 const board = document.getElementById('board')
+
+const board2 = document.getElementById('board2')
+
 let mainTimer
 let gameActive = false;
 for (i = 0; i < 200; i++) {
     const newSquares = document.createElement('div')
     newSquares.className = "square"
     board.appendChild(newSquares)
+}
+
+for (i = 0; i < 200; i++) {
+    const newSquares = document.createElement('div')
+    newSquares.className = "square"
+    board2.appendChild(newSquares)
 }
 
 //This section instantiates my global variables.
@@ -444,7 +456,7 @@ const clearBoard = () => {
     }
 }
 
-//This function spanws the shapes at the top of the board.
+//This function spawns the shapes at the top of the board.
 const spawnBlock = () => {
     let activeBlockCount = 0
     for (let i = 0; i < boardArr.length; i++) {
@@ -454,17 +466,23 @@ const spawnBlock = () => {
     }
     if (activeBlockCount === 0) {
         shapeIndex = Math.floor(Math.random() * 7)
-        for (let i = 0; i < tetrisShapes[shapeIndex].length; i++) {
-            if (boardArr[tetrisShapes[shapeIndex][i]].className === "square occupied dead") {
-                stopGame()
-                gameOver()
-                return
-            }
-            boardArr[tetrisShapes[shapeIndex][i]].classList.add("occupied")
-        }
+        socket.emit('spawnBlock', shapeIndex)
     }
     return shapeIndex
 }
+
+socket.on('spawnBlock', (data) => {
+    shapeIndex = data
+    for (let i = 0; i < tetrisShapes[1].length; i++) {
+        if (boardArr[tetrisShapes[1][i]].className === "square occupied dead") {
+            stopGame()
+            gameOver()
+            return
+        }
+        boardArr[tetrisShapes[1][i]].classList.add("occupied")
+    }
+    return shapeIndex
+})
 
 //This function checks to see if there are complete rows that can be removed and it adjusts the score accordingly.
 const removeRows = () => {
@@ -544,29 +562,34 @@ const fallFaster = () => {
     spawnBlock()
 }
 
-//These attach event listeners to left, right, down, and up arrow keys as well as preventing default scrolling on the down key.
-document.addEventListener('keydown', function (event) {
-    if (event.code === 'ArrowDown') {
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'ArrowDown' || event.code === 'ArrowUp' || event.code === 'ArrowRight' || event.code === 'ArrowLeft') {
         event.preventDefault()
+        socket.emit('keydown', event.code)
     }
 })
-document.addEventListener('keydown', function (event) {
-    if (event.code === 'ArrowDown') {
+
+socket.on('keydown', (data) => {
+    if (data === 'ArrowDown') {
+        event.preventDefault()
         fallFaster()
     }
 })
-document.addEventListener('keydown', function (event) {
-    if (event.code === 'ArrowUp') {
+socket.on('keydown', (data) => {
+    if (data === 'ArrowUp') {
+        event.preventDefault()
         rotateShape()
     }
 })
-document.addEventListener('keydown', function (event) {
-    if (event.code === 'ArrowRight') {
+socket.on('keydown', (data) => {
+    if (data === 'ArrowRight') {
+        event.preventDefault()
         moveRight()
     }
 })
-document.addEventListener('keydown', function (event) {
-    if (event.code === 'ArrowLeft') {
+socket.on('keydown', (data) => {
+    if (data === 'ArrowLeft') {
+        event.preventDefault()
         moveLeft()
     }
 })
@@ -584,9 +607,11 @@ const mainLoop = () => {
 
 //This gives the play button the ability to start the game.
 document.getElementById('play').addEventListener('click', () => {
+    socket.emit('play')
+})
+
+socket.on('play', () => {
     gameActive = true;
     clearBoard()
     mainLoop()
 })
-
-

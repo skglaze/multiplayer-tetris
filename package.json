@@ -1,0 +1,20 @@
+{
+  "name": "tetris-with-friends",
+  "version": "1.0.0",
+  "description": "Trello Board:\r https://trello.com/b/uuzwlgYI/welcome-to-trello",
+  "main": "\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D2\u001b[C\u001b[C\u001b[D\u001b[D\u001b[2~.js)\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[\u001b[\u001b[C\u001b[C\u001b[C\u001b[C.js)",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u001b\u001b[C\u001b[Dry:"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2",
+    "socket.io": "^2.3.0"
+  }
+}

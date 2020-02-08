@@ -1,10 +1,10 @@
 * {
     display: block;
-    width: 1000px;
+    width: 930px;
     margin: 0 auto;
 }
 body{
-    background: linear-gradient(black, rgb(43, 43, 43))
+    background: linear-gradient(black, rgb(43, 43, 43));
 }
 header {
     text-align: center;
@@ -58,6 +58,13 @@ span {
     margin: 0 auto;
     display: block;
 }
+
+#board2 {
+    width: 300px;
+    margin: 0 auto;
+    display: block;
+}
+
 .square {
     float: left;
     width: 30px;
@@ -80,7 +87,7 @@ span {
 aside{
     float: right;
     width: 200px;
-    padding-right: 100px;
+    padding-right: 20px;
 }
 #highScore{
     background: black;
@@ -129,8 +136,10 @@ aside{
 }
 main {
     margin: 0 auto;
-    width: 400px;
+    width: 700px;
     float: left;
-    padding-left: 300px;
+    padding-left: 0px;
     height: 100vh;
+    display: flex;
+    margin-top: 20px;
 }
