@@ -1,15 +1,15 @@
 {
   "name": "tetris-with-friends",
   "version": "1.0.0",
-  "description": "Trello Board:\r https://trello.com/b/uuzwlgYI/welcome-to-trello",
-  "main": "\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D2\u001b[C\u001b[C\u001b[D\u001b[D\u001b[2~.js)\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[\u001b[\u001b[C\u001b[C\u001b[C\u001b[C.js)",
+  "description": "# Setup",
+  "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node script.js"
   },
   "repository": {
     "type": "git",
-    "url": "\u001b\u001b[C\u001b[Dry:"
+    "url": "https://github.com/skglaze/multiplayer-tetris"
   },
   "author": "",
   "license": "ISC",
