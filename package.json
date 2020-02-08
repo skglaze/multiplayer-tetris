@@ -4,7 +4,8 @@
   "description": "Trello Board:\r https://trello.com/b/uuzwlgYI/welcome-to-trello",
   "main": "\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D2\u001b[C\u001b[C\u001b[D\u001b[D\u001b[2~.js)\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[\u001b[\u001b[C\u001b[C\u001b[C\u001b[C.js)",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "script.js"
   },
   "repository": {
     "type": "git",
