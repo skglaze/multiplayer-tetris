@@ -1,5 +1,5 @@
 //Make connection
-const socket = io.connect('localhost:3000')
+const socket = io.connect('process.env.PORT || localhost:3000')
 
 //This section creates the board of divs that the game is played on.
 const board = document.getElementById('board')
