@@ -6,7 +6,6 @@ const board = document.getElementById('board')
 
 const board2 = document.getElementById('board2')
 
-let mainTimer
 let gameActive = false
 let numbArr = []
 
@@ -66,6 +65,29 @@ const stop = () => {
     }
 }
 
+// const stop = () => {
+//     for (let i = numbArr.length - 1; i >= 0; i--) {
+//         if (numbArr[i] === 1) {
+//             if ((i + 11 > 200) || (numbArr[i + 10] === 2)) {
+//                 isSliding = true
+//                 clearTimeout(mainLoop)
+//                 setTimeout(changeSpeed, 200)
+//                 for (let i = numbArr.length - 1; i >= 0; i--) {
+//                     if (numbArr[i] === 1) {
+//                         if ((i + 11 > 200) || (numbArr[i + 10] === 2)) {
+//                             for (let i = numbArr.length - 1; i >= 0; i--) {
+//                                 if (numbArr[i] === 1) {
+//                                     numbArr[i] = 2
+//                                 }
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
 //This function allows the shapes to move right.
 const moveRight = () => {
     let movableBlockCount = 0
@@ -83,7 +105,7 @@ const moveRight = () => {
                 numbArr[i] = 0
             }
         }
-        stop()
+        //stop()
     }
 }
 
@@ -104,7 +126,7 @@ const moveLeft = () => {
                 numbArr[i] = 0
             }
         }
-        stop()
+        //stop()
     }
 }
 
@@ -127,7 +149,7 @@ const rotateShape = () => {
             shapeIndex = 11
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 11) {
         let tempArr = []
@@ -146,7 +168,7 @@ const rotateShape = () => {
             shapeIndex = 1
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 2) {
         let tempArr = []
@@ -161,7 +183,7 @@ const rotateShape = () => {
             shapeIndex = 21
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 21) {
         let tempArr = []
@@ -176,7 +198,7 @@ const rotateShape = () => {
             shapeIndex = 22
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 22) {
         let tempArr = []
@@ -191,7 +213,7 @@ const rotateShape = () => {
             shapeIndex = 23
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 23) {
         let tempArr = []
@@ -206,7 +228,7 @@ const rotateShape = () => {
             shapeIndex = 2
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 3) {
         let tempArr = []
@@ -225,7 +247,7 @@ const rotateShape = () => {
             shapeIndex = 31
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 31) {
         let tempArr = []
@@ -242,7 +264,7 @@ const rotateShape = () => {
             shapeIndex = 3
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 4) {
         let tempArr = []
@@ -259,7 +281,7 @@ const rotateShape = () => {
             shapeIndex = 41
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 41) {
         let tempArr = []
@@ -276,7 +298,7 @@ const rotateShape = () => {
             shapeIndex = 4
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 5) {
         let tempArr = []
@@ -295,7 +317,7 @@ const rotateShape = () => {
             shapeIndex = 51
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 51) {
         let tempArr = []
@@ -314,7 +336,7 @@ const rotateShape = () => {
             shapeIndex = 52
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 52) {
         let tempArr = []
@@ -333,7 +355,7 @@ const rotateShape = () => {
             shapeIndex = 53
             return shapeIndex
         }
-        stop()
+        // stop()
     }
     if (shapeIndex === 53) {
         let tempArr = []
@@ -352,7 +374,7 @@ const rotateShape = () => {
             shapeIndex = 5
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 6) {
         let tempArr = []
@@ -371,7 +393,7 @@ const rotateShape = () => {
             shapeIndex = 61
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 61) {
         let tempArr = []
@@ -390,7 +412,7 @@ const rotateShape = () => {
             shapeIndex = 62
             return shapeIndex
         }
-        stop()
+        //stop()
     }
     if (shapeIndex === 62) {
         let tempArr = []
@@ -409,7 +431,7 @@ const rotateShape = () => {
             shapeIndex = 63
             return shapeIndex
         }
-        stop()
+        // stop()
     }
     if (shapeIndex === 63) {
         let tempArr = []
@@ -428,7 +450,7 @@ const rotateShape = () => {
             shapeIndex = 6
             return shapeIndex
         }
-        stop()
+        //stop()
     }
 }
 
@@ -546,7 +568,7 @@ stopGame = () => {
     gameActive = false;
     clearInterval(framrateLoop)
     clearInterval(updateSocket)
-    clearTimeout(mainTimer)
+    clearTimeout(mainLoop)
 }
 
 // This function increases the speed of the game relative to the score of the player
@@ -574,6 +596,36 @@ const changeSpeed = () => {
     }
 }
 
+//This function adds the shadow of the block on the board
+const shadowShape = () => {
+    let tempArr = []
+    let differenceArr = []
+    let smallestDistanceIndex = 0
+    for (let i = 0; i < numbArr.length; i++) {
+        if (numbArr[i] === 2) {
+            tempArr.push(i)
+        }
+    }
+    for (let i = 0; i < 4; i++) {
+        for (let j = tempArr[i]; j < 210; j = j + 10) {
+            if (numbArr[j] === 3 || numbArr[j] < 200) {
+                let differenceBetween = j - tempArr[i] - 10
+                differenceArr.push(differenceBetween)
+            }
+        }
+    }
+    for (let i = 1; i < 4; i++) {
+        if (differenceArr[i] < differenceArr[i - 1]) {
+            smallestDistanceIndex = i
+        }
+    }
+    if (differenceArr[smallestDistanceIndex] > 0) {
+        for (let i = 0; i < 4; i++) {
+            numbArr[tempArr[i + differenceArr[smallestDistanceIndex]]] = 4
+        }
+    }
+}
+
 //This function updates the board state
 const setBoardState = () => {
     for (let i = 0; i < numbArr.length; i++) {
@@ -584,10 +636,13 @@ const setBoardState = () => {
             boardArr[i].className = "square occupied"
         }
         if (numbArr[i] === 2) {
-            boardArr[i].className = "square occupied dead"
+            boardArr[i].className = "square dead"
+        }
+        if (numbArr[i] === 4) {
+            boardArr[i].className = "square shadow"
         }
     }
-    stop()
+    //stop()
 }
 
 const updateSocket = () => {
@@ -610,8 +665,8 @@ socket.on('updateSocket', (data) => {
 
 //This function allows the player to increase fall speed.
 const fallFaster = () => {
-    fall()
     stop()
+    fall()
     removeRows()
     spawnBlock()
 }
@@ -645,8 +700,8 @@ document.addEventListener('keydown', function (event) {
 
 //This function is the main loop of the game.
 const mainLoop = () => {
-    fall()
     stop()
+    fall()
     removeRows()
     spawnBlock()
     if (gameActive === true) {
@@ -657,7 +712,7 @@ const mainLoop = () => {
 }
 
 const framrateLoop = () => {
-    setInterval(setBoardState, 40)
+    setInterval(setBoardState, 100)
 }
 
 const sendDataLoop = () => {
