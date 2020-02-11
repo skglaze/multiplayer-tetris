@@ -37,6 +37,9 @@ const title = document.getElementsByTagName('span')
 let rowCounter = 0
 let score = 0
 let highScore = 2000
+let frameRate
+let dataLoop
+let gameLoop
 
 //This is the function that makes the shapes move down.
 const fall = () => {
@@ -64,29 +67,6 @@ const stop = () => {
         }
     }
 }
-
-// const stop = () => {
-//     for (let i = numbArr.length - 1; i >= 0; i--) {
-//         if (numbArr[i] === 1) {
-//             if ((i + 11 > 200) || (numbArr[i + 10] === 2)) {
-//                 isSliding = true
-//                 clearTimeout(mainLoop)
-//                 setTimeout(changeSpeed, 200)
-//                 for (let i = numbArr.length - 1; i >= 0; i--) {
-//                     if (numbArr[i] === 1) {
-//                         if ((i + 11 > 200) || (numbArr[i + 10] === 2)) {
-//                             for (let i = numbArr.length - 1; i >= 0; i--) {
-//                                 if (numbArr[i] === 1) {
-//                                     numbArr[i] = 2
-//                                 }
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
 
 //This function allows the shapes to move right.
 const moveRight = () => {
@@ -565,34 +545,37 @@ socket.on('addRows', (data) => {
 
 //This function stops the game by clearing the timeout loop.
 stopGame = () => {
+    //console.log("I have been summoned")
     gameActive = false;
-    clearInterval(framrateLoop)
-    clearInterval(updateSocket)
-    clearTimeout(mainLoop)
+    clearTimeout(gameLoop)
+    //stopFrameRateLoop()
+    //stopDataLoop()
+    clearInterval(frameRate)
+    clearInterval(dataLoop)
 }
 
 // This function increases the speed of the game relative to the score of the player
 const changeSpeed = () => {
     if (score < 750) {
-        setTimeout(mainLoop, 800)
+        gameLoop = setTimeout(mainLoop, 800)
     }
     if ((score >= 750) && (score < 1000)) {
-        setTimeout(mainLoop, 700)
+        gameLoop = setTimeout(mainLoop, 700)
     }
     if ((score >= 1000) && (score < 2000)) {
-        setTimeout(mainLoop, 600)
+        gameLoop = setTimeout(mainLoop, 600)
     }
     if ((score >= 2000) && (score < 3000)) {
-        setTimeout(mainLoop, 500)
+        gameLoop = setTimeout(mainLoop, 500)
     }
     if ((score >= 3000) && (score < 5000)) {
-        setTimeout(mainLoop, 400)
+        gameLoop = setTimeout(mainLoop, 400)
     }
     if ((score >= 5000) && (score < 10000)) {
-        setTimeout(mainLoop, 300)
+        gameLoop = setTimeout(mainLoop, 300)
     }
     if (score >= 10000) {
-        setTimeout(mainLoop, 200)
+        gameLoop = setTimeout(mainLoop, 200)
     }
 }
 
@@ -602,32 +585,40 @@ const shadowShape = () => {
     let differenceArr = []
     let smallestDistanceIndex = 0
     for (let i = 0; i < numbArr.length; i++) {
-        if (numbArr[i] === 2) {
+        if (numbArr[i] === 1) {
             tempArr.push(i)
+        }
+        if (numbArr[i] === 3) {
+            numbArr[i] = 0
         }
     }
     for (let i = 0; i < 4; i++) {
         for (let j = tempArr[i]; j < 210; j = j + 10) {
-            if (numbArr[j] === 3 || numbArr[j] < 200) {
+            if (numbArr[j] === 2 || (j >= 200 && j < 250)) {
                 let differenceBetween = j - tempArr[i] - 10
                 differenceArr.push(differenceBetween)
+                j = 300
             }
         }
     }
     for (let i = 1; i < 4; i++) {
-        if (differenceArr[i] < differenceArr[i - 1]) {
+        if (differenceArr[i] < differenceArr[smallestDistanceIndex]) {
             smallestDistanceIndex = i
         }
     }
     if (differenceArr[smallestDistanceIndex] > 0) {
         for (let i = 0; i < 4; i++) {
-            numbArr[tempArr[i + differenceArr[smallestDistanceIndex]]] = 4
+            if (numbArr[tempArr[i] + differenceArr[smallestDistanceIndex]] != 1 && numbArr[tempArr[i] + differenceArr[smallestDistanceIndex]] != 2) {
+                numbArr[tempArr[i] + differenceArr[smallestDistanceIndex]] = 3
+            }
         }
     }
 }
 
 //This function updates the board state
 const setBoardState = () => {
+    shadowShape()
+    //console.log("I'm still firing")
     for (let i = 0; i < numbArr.length; i++) {
         if (numbArr[i] === 0) {
             boardArr[i].className = "square"
@@ -638,7 +629,7 @@ const setBoardState = () => {
         if (numbArr[i] === 2) {
             boardArr[i].className = "square dead"
         }
-        if (numbArr[i] === 4) {
+        if (numbArr[i] === 3) {
             boardArr[i].className = "square shadow"
         }
     }
@@ -646,6 +637,7 @@ const setBoardState = () => {
 }
 
 const updateSocket = () => {
+    //console.log("I'm also firing")
     socket.emit('updateSocket', numbArr)
 }
 
@@ -697,6 +689,11 @@ document.addEventListener('keydown', function (event) {
         moveLeft()
     }
 })
+document.addEventListener('keydown', function (event) {
+    if (event.code === 'Enter') {
+        stopGame()
+    }
+})
 
 //This function is the main loop of the game.
 const mainLoop = () => {
@@ -706,17 +703,21 @@ const mainLoop = () => {
     spawnBlock()
     if (gameActive === true) {
         changeSpeed()
-        framrateLoop()
-        sendDataLoop()
     }
 }
 
-const framrateLoop = () => {
-    setInterval(setBoardState, 100)
+const frameRateLoop = () => {
+    frameRate = setInterval(setBoardState, 40)
+}
+const stopFrameRateLoop = () => {
+    clearInterval(frameRate)
 }
 
 const sendDataLoop = () => {
-    setInterval(updateSocket, 250)
+    dataLoop = setInterval(updateSocket, 250)
+}
+const stopDataLoop = () => {
+    clearInterval(dataLoop)
 }
 
 const play = () => {
@@ -728,6 +729,8 @@ document.getElementById('play').addEventListener('click', play)
 socket.on('play', () => {
     document.getElementById('play').removeEventListener('click', play)
     gameActive = true;
+    frameRateLoop()
+    sendDataLoop()
     clearBoard()
     mainLoop()
 })
