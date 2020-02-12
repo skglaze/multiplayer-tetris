@@ -621,6 +621,18 @@ const shadowShape = () => {
     }
 }
 
+const hardFall = () => {
+    for (let i = 0; i < numbArr.length; i++) {
+        if (numbArr[i] === 1) {
+            numbArr[i] = 0
+        }
+        if (numbArr[i] === 3) {
+            numbArr[i] = 2
+        }
+    }
+    spawnBlock()
+}
+
 //This function updates the board state
 const setBoardState = () => {
     shadowShape()
@@ -680,26 +692,37 @@ document.addEventListener('keydown', function (event) {
 })
 document.addEventListener('keydown', function (event) {
     if (event.code === 'ArrowDown') {
+        event.preventDefault()
         fallFaster()
     }
 })
 document.addEventListener('keydown', function (event) {
     if (event.code === 'ArrowUp') {
+        event.preventDefault()
         rotateShape()
     }
 })
 document.addEventListener('keydown', function (event) {
     if (event.code === 'ArrowRight') {
+        event.preventDefault()
         moveRight()
     }
 })
 document.addEventListener('keydown', function (event) {
     if (event.code === 'ArrowLeft') {
+        event.preventDefault()
         moveLeft()
     }
 })
 document.addEventListener('keydown', function (event) {
+    if (event.code === 'Space') {
+        event.preventDefault()
+        hardFall()
+    }
+})
+document.addEventListener('keydown', function (event) {
     if (event.code === 'Enter') {
+        event.preventDefault()
         stopGame()
     }
 })
