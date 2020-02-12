@@ -137,6 +137,7 @@ aside{
     background: #fe019a;
     color: white;
     border: 3px #37ff1400 solid;
+    cursor: pointer;
 }
 main {
     margin: 0 auto;

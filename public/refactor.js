@@ -157,7 +157,15 @@ const rotateShape = () => {
                 tempArr.push(i)
             }
         }
-        if ((numbArr[tempArr[1] - 10] != 1) && (numbArr[tempArr[1] - 10] != 2)) {
+        if ((numbArr[tempArr[1] - 10] != 1) && (numbArr[tempArr[1] - 10] != 2 && (numbArr[tempArr[1] - 10] >= 0))) {
+            numbArr[tempArr[2]] = 0
+            numbArr[tempArr[1] - 10] = 1
+            shapeIndex = 21
+            return shapeIndex
+        }
+        if ((numbArr[tempArr[1] - 10] != 1) && (numbArr[tempArr[1] - 10] != 2 && (numbArr[tempArr[1] - 10] < 0))) {
+            console.log("The T should spin")
+            fall()
             numbArr[tempArr[2]] = 0
             numbArr[tempArr[1] - 10] = 1
             shapeIndex = 21
@@ -187,7 +195,7 @@ const rotateShape = () => {
                 tempArr.push(i)
             }
         }
-        if ((numbArr[tempArr[2] + 10] != 1) && (numbArr[tempArr[2] + 10] != 2)) {
+        if ((numbArr[tempArr[2] + 10] != 1) && (numbArr[tempArr[2] + 10] != 2) && numbArr[tempArr[2] + 10] <= 200) {
             numbArr[tempArr[1]] = 0
             numbArr[tempArr[2] + 10] = 1
             shapeIndex = 23
@@ -217,7 +225,7 @@ const rotateShape = () => {
                 tempArr.push(i)
             }
         }
-        if ((numbArr[tempArr[0] - 10] != 1) && (numbArr[tempArr[0] - 10] != 2) && (numbArr[tempArr[0] + 11] != 1) && (numbArr[tempArr[0] + 11] != 2)) {
+        if ((numbArr[tempArr[0] - 10] != 1) && (numbArr[tempArr[0] - 10] != 2) && (numbArr[tempArr[0] + 11] != 1) && (numbArr[tempArr[0] + 11] != 2) && (numbArr[tempArr[1] - 10] >= 0)) {
             numbArr[tempArr[1]] = 0
             numbArr[tempArr[2]] = 0
             numbArr[tempArr[3]] = 0
@@ -253,7 +261,7 @@ const rotateShape = () => {
                 tempArr.push(i)
             }
         }
-        if ((numbArr[tempArr[1] - 10] != 1) && (numbArr[tempArr[1] - 10] != 2) && (numbArr[tempArr[1] + 9] != 1) && (numbArr[tempArr[1] + 9] != 2)) {
+        if ((numbArr[tempArr[1] - 10] != 1) && (numbArr[tempArr[1] - 10] != 2) && (numbArr[tempArr[1] + 9] != 1) && (numbArr[tempArr[1] + 9] != 2) && (numbArr[tempArr[1] - 10] >= 0)) {
             numbArr[tempArr[2]] = 0
             numbArr[tempArr[3]] = 0
             numbArr[tempArr[1] + 9] = 1
@@ -441,6 +449,7 @@ const gameOver = () => {
     for (let i = 0; i < numbArr.length; i++) {
         numbArr[i] = 2
     }
+    setBoardState()
     return score
 }
 
@@ -474,7 +483,6 @@ const spawnBlock = () => {
         for (let i = 0; i < tetrisShapes[shapeIndex].length; i++) {
             if (numbArr[tetrisShapes[shapeIndex][i]] === 2) {
                 stopGame()
-                gameOver()
                 socket.emit("gameOver")
                 return
             }
@@ -488,7 +496,6 @@ const spawnBlock = () => {
 
 socket.on("gameOver", () => {
     stopGame()
-    gameOver()
 })
 
 //This function checks to see if there are complete rows that can be removed and it adjusts the score accordingly.
@@ -547,9 +554,8 @@ socket.on('addRows', (data) => {
 stopGame = () => {
     //console.log("I have been summoned")
     gameActive = false;
+    gameOver()
     clearTimeout(gameLoop)
-    //stopFrameRateLoop()
-    //stopDataLoop()
     clearInterval(frameRate)
     clearInterval(dataLoop)
 }
@@ -650,7 +656,10 @@ socket.on('updateSocket', (data) => {
             boardArr2[i].className = "square occupied"
         }
         if (data[i] === 2) {
-            boardArr2[i].className = "square occupied dead"
+            boardArr2[i].className = "square dead"
+        }
+        if (data[i] === 3) {
+            boardArr2[i].className = "square shadow"
         }
     }
 })
@@ -709,15 +718,9 @@ const mainLoop = () => {
 const frameRateLoop = () => {
     frameRate = setInterval(setBoardState, 40)
 }
-const stopFrameRateLoop = () => {
-    clearInterval(frameRate)
-}
 
 const sendDataLoop = () => {
     dataLoop = setInterval(updateSocket, 250)
-}
-const stopDataLoop = () => {
-    clearInterval(dataLoop)
 }
 
 const play = () => {
