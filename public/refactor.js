@@ -630,6 +630,7 @@ const hardFall = () => {
             numbArr[i] = 2
         }
     }
+    removeRows()
     spawnBlock()
 }
 
