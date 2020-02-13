@@ -622,17 +622,60 @@ const shadowShape = () => {
 }
 
 const hardFall = () => {
+    let tempArr = []
+    let differenceArr = []
+    let smallestDistanceIndex = 0
+    for (let i = 0; i < numbArr.length; i++) {
+        if (numbArr[i] === 1) {
+            tempArr.push(i)
+        }
+    }
+    for (let i = 0; i < 4; i++) {
+        for (let j = tempArr[i]; j < 210; j = j + 10) {
+            if (numbArr[j] === 2 || (j >= 200 && j < 250)) {
+                let differenceBetween = j - tempArr[i] - 10
+                differenceArr.push(differenceBetween)
+                j = 300
+            }
+        }
+    }
+    for (let i = 1; i < 4; i++) {
+        if (differenceArr[i] < differenceArr[smallestDistanceIndex]) {
+            smallestDistanceIndex = i
+        }
+    }
     for (let i = 0; i < numbArr.length; i++) {
         if (numbArr[i] === 1) {
             numbArr[i] = 0
         }
-        if (numbArr[i] === 3) {
-            numbArr[i] = 2
+    }
+    for (let i = 0; i < 4; i++) {
+        if (differenceArr[smallestDistanceIndex] > 0) {
+            numbArr[tempArr[i] + differenceArr[smallestDistanceIndex]] = 2
+        }
+        if (differenceArr[smallestDistanceIndex] === 0) {
+            numbArr[tempArr[i]] = 2
         }
     }
     removeRows()
     spawnBlock()
 }
+
+// const hardFall = () => {
+//     for (let i = numbArr.length; i >= 0; i--) {
+//         if (numbArr[i] === 1 && numbArr[i + 10] != 2 && i + 10 < 200) {
+//             numbArr[i] = 0
+//         }
+//         if (numbArr[i] === 1 && (numbArr[i + 10] === 2 || i + 10 >= 200)) {
+//             numbArr[i] = 2
+//         }
+//         if (numbArr[i] === 3) {
+//             numbArr[i] = 2
+//         }
+//     }
+//     removeRows()
+//     spawnBlock()
+// }
 
 //This function updates the board state
 const setBoardState = () => {
