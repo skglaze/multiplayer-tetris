@@ -1,15 +1,17 @@
-* {
+html {
     display: block;
-    width: 930px;
     margin: 0 auto;
 }
 body{
     background: linear-gradient(black, rgb(43, 43, 43));
+    margin: 0 auto;
+    width: 930px;
 }
 header {
     text-align: center;
     font-size: 50px;
     font-family: 'Bangers', cursive;
+    padding-top: 23px;
     margin-bottom: 20px;
 }
 #coloredTitle {
